@@ -42,5 +42,4 @@ public class Book {
         }
         return new String(c);
     }
-
 }
