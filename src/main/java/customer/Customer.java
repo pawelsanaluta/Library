@@ -16,20 +16,21 @@ public class Customer {
 
     public Customer(String firstName, String lastName, String pesel, String email, String phoneNumber,
                     Map<Approvals, Boolean> approvals, Address address) throws IllegalAccessException {
-        if (EmptyValidator.validator(firstName)){
+        if (EmptyValidator.validate(firstName)) {
             this.firstName = firstName;
-        }else {
+        } else {
             throw new IllegalAccessException("Niepoprawne imię");
         }
-        if (EmptyValidator.validator(lastName)){
+        if (EmptyValidator.validate(lastName)) {
             this.lastName = lastName;
-        }else{
+        } else {
             throw new IllegalAccessException("Niepoprawne nazwisko");
         }
-        if (PeselValidator.validator(pesel)) {
+        if (PeselValidator.validate(pesel)) {
             this.pesel = pesel;
-        }else
+        } else {
             throw new IllegalAccessException("Niepoprawne pesel");
+        }
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.approvals = approvals;

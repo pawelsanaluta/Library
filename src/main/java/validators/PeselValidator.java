@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class PeselValidator {
-    public static boolean validator(String pesel) {
+    public static boolean validate(String pesel) {
         if (pesel == null) {
             System.out.println("Pesel nie może byc null!");
             return false;

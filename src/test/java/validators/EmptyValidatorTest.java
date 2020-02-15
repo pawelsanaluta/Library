@@ -2,9 +2,6 @@ package validators;
 
 import org.junit.Assert;
 import org.junit.Test;
-import validators.EmptyValidator;
-
-import static org.junit.Assert.*;
 
 public class EmptyValidatorTest {
 
@@ -13,7 +10,7 @@ public class EmptyValidatorTest {
         //given
         String toValid = null;
         //when
-        boolean result = EmptyValidator.validator(toValid);
+        boolean result = EmptyValidator.validate(toValid);
         //then
         Assert.assertFalse(result);
     }
@@ -22,7 +19,7 @@ public class EmptyValidatorTest {
         //given
         String toValid = "";
         //when
-        boolean result = EmptyValidator.validator(toValid);
+        boolean result = EmptyValidator.validate(toValid);
         //then
         Assert.assertFalse(result);
     }
@@ -32,8 +29,8 @@ public class EmptyValidatorTest {
         String toValid1 = " abc";
         String toValid2 = " ";
         //when
-        boolean result1 = EmptyValidator.validator(toValid1);
-        boolean result2 = EmptyValidator.validator(toValid2);
+        boolean result1 = EmptyValidator.validate(toValid1);
+        boolean result2 = EmptyValidator.validate(toValid2);
         //then
         Assert.assertTrue(result1);
         Assert.assertFalse(result2);

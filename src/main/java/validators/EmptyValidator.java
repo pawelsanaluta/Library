@@ -1,7 +1,7 @@
 package validators;
 
 public class EmptyValidator {
-    public static boolean validator(String toValid) {
+    public static boolean validate(String toValid) {
         if (toValid == null) {
             return false;
         }
