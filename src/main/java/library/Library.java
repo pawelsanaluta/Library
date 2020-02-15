@@ -3,6 +3,8 @@ package library;
 import book.Book;
 import book.Category;
 import book.Condition;
+import customer.Address;
+import customer.Approvals;
 import customer.Customer;
 import lombok.Getter;
 
@@ -10,18 +12,18 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Getter
-public class Library {
+public class Library implements LibraryInterface {
 
     private String name;
-    private List<Book> catalogue;
-    private List<Customer> customers;
-    private Map<String, Customer> rentals;
+    private final static List<Book> catalogue = new ArrayList<>();
+    private static List<Customer> customers;
+    private static Map<String, Customer> rentals;
 
     public Library(String name) {
         this.name = name;
-        this.catalogue = new ArrayList<>();
-        this.customers = new ArrayList<>();
-        this.rentals = new HashMap<>();
+//        catalogue = new ArrayList<>();
+        customers = new ArrayList<>();
+        rentals = new HashMap<>();
     }
 
     public Book createBook(String title, String authorFirstName, String authorLastName, int released, Category category, Condition condition, int pages, String publisher) {
@@ -68,6 +70,96 @@ public class Library {
 
     public List<Book> searchByCategory(Category category) {
         return catalogue.stream().filter(e -> e.getCategory().equals(category)).collect(Collectors.toList());
+    }
+
+    @Override
+    public Customer createCustomer(String firstName, String lastName, String pesel, String email, String phoneNumber, Map<Approvals, Boolean> approvals, Address address) {
+        return null;
+    }
+
+    @Override
+    public void addCustomer(Customer customer) {
+
+    }
+
+    @Override
+    public void removeCustomer(String pesel) {
+
+    }
+
+    @Override
+    public void editCustomer(Customer customer) {
+
+    }
+
+    @Override
+    public Customer searchCustomerByPesel(String pesel) {
+        return null;
+    }
+
+    @Override
+    public Customer searchCustomerByName(String firstName, String lastName) {
+        return null;
+    }
+
+    @Override
+    public String showCustomerRentals(String pesel) {
+        return null;
+    }
+
+    @Override
+    public void rentBook(String id) {
+
+    }
+
+    @Override
+    public void bookBook(String id) {
+
+    }
+
+    @Override
+    public void returnBook(String id) {
+
+    }
+
+    @Override
+    public void saveData() {
+
+    }
+
+    @Override
+    public void saveCustomers(String filename) {
+
+    }
+
+    @Override
+    public void saveCatalogue(String filename) {
+
+    }
+
+    @Override
+    public void saveRentals(String filename) {
+
+    }
+
+    @Override
+    public void readData() {
+
+    }
+
+    @Override
+    public void readCustomers(String filename) {
+
+    }
+
+    @Override
+    public void readCatalogue(String filename) {
+
+    }
+
+    @Override
+    public void readRentals(String filename) {
+
     }
 
 }
