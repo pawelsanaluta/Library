@@ -114,7 +114,9 @@ public class Library implements LibraryInterface {
 
     @Override
     public List<Customer> searchCustomerByName(String firstName, String lastName) {
-        List<Customer> customers = CUSTOMERS.stream().filter(e -> e.getFirstName().contains(firstName) && e.getLastName().contains(lastName)).collect(Collectors.toList());
+        List<Customer> customers = CUSTOMERS.stream().filter(e -> e.getFirstName()
+                .contains(firstName) && e.getLastName().contains(lastName))
+                .collect(Collectors.toList());
         if(customers.size() != 0) {
             return customers;
         } else {

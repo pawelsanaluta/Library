@@ -109,7 +109,7 @@ public class AddressValidatorTest {
         String number = null;
         //when
         Address address = new Address("street", "city", number, "11111");
-        boolean result = AddressValidator.validateAddressNumber(address.getHouseNumber());
+        boolean result = AddressValidator.validateAddressNumber(address.getAddressNumber());
         //then
         Assert.assertFalse(result);
     }
@@ -119,7 +119,7 @@ public class AddressValidatorTest {
         String number = "";
         //when
         Address address = new Address("street", "city", number, "11111");
-        boolean result = AddressValidator.validateAddressNumber(address.getHouseNumber());
+        boolean result = AddressValidator.validateAddressNumber(address.getAddressNumber());
         //then
         Assert.assertFalse(result);
     }
@@ -131,8 +131,8 @@ public class AddressValidatorTest {
         //when
         Address address1 = new Address("street", "city", number1, "11111");
         Address address2 = new Address("street", "city", number2, "11111");
-        boolean result1 = AddressValidator.validateAddressNumber(address1.getHouseNumber());
-        boolean result2 = AddressValidator.validateAddressNumber(address2.getHouseNumber());
+        boolean result1 = AddressValidator.validateAddressNumber(address1.getAddressNumber());
+        boolean result2 = AddressValidator.validateAddressNumber(address2.getAddressNumber());
         //then
         Assert.assertFalse(result1);
         Assert.assertTrue(result2);
@@ -145,8 +145,8 @@ public class AddressValidatorTest {
         //when
         Address address1 = new Address("street", "city", number1, "11111");
         Address address2 = new Address("street", "city", number2, "11111");
-        boolean result1 = AddressValidator.validateAddressNumber(address1.getHouseNumber());
-        boolean result2 = AddressValidator.validateAddressNumber(address2.getHouseNumber());
+        boolean result1 = AddressValidator.validateAddressNumber(address1.getAddressNumber());
+        boolean result2 = AddressValidator.validateAddressNumber(address2.getAddressNumber());
         //then
         Assert.assertTrue(result1);
         Assert.assertTrue(result2);

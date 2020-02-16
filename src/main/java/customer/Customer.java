@@ -7,6 +7,7 @@ import validators.PhoneValidator;
 import lombok.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Setter
@@ -20,10 +21,6 @@ public class Customer {
     private String phoneNumber;
     private Map<Approvals, Boolean> approvals;
     private Address address;
-
-    public String getEmail() {
-        return email;
-    }
 
     public Customer(String firstName, String lastName, String pesel, String email, String phoneNumber,
                     Address address) throws IllegalArgumentException {
@@ -52,10 +49,35 @@ public class Customer {
         } else {
             throw new IllegalArgumentException("Niepoprawny numer telefonu");
         }
+
         this.address = address;
         this.approvals = new HashMap<>();
         this.approvals.put(Approvals.PERSONAL_DATA_PROCESSING, true);
         this.approvals.put(Approvals.MARKETING, true);
+    }
+
+    public void showCustomers(List<Customer> customerList){
+        for (Customer c :customerList) {
+            System.out.println(getFirstName() + " " + getLastName() + " Pesel: " + getPesel());
+            System.out.println("Dane kontaktowe:");
+            System.out.print(String.format("Numer telefonu %-20s", c.getPhoneNumber()));
+            System.out.print(String.format("Adres email %-20s", c.getEmail()));
+            System.out.println(String.format(" %-20s", c.getAddress().toString()));
+            System.out.println("Zgody: ");
+            System.out.println(String.format("%-20s",c.getApprovals().toString()));
+
+        }
+    }
+    @Override
+    public String toString() {
+        return "Klient: " +
+                " firstName" + firstName + '\'' +
+                " lastName" + lastName + '\'' +
+                " pesel" + pesel + '\'' +
+                " email" + email + '\'' +
+                " phoneNumber" + phoneNumber + '\'' +
+                " approvals" + approvals +
+                " address" + address;
     }
 
     public void setApprovals(Approvals approval, boolean value) {
