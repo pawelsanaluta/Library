@@ -74,8 +74,13 @@ public class Library implements LibraryInterface {
     }
 
     public List<Book> searchByKeyword(String keyword) {
-        return  CATALOGUE.stream().filter(e -> e.getTitle().contains(keyword) || e.getAuthor().contains(keyword)
-                || e.getPublisher().contains(keyword)).collect(Collectors.toList());
+        if(keyword.length() > 2) {
+            return  CATALOGUE.stream().filter(e -> e.getTitle().toLowerCase().contains(keyword.toLowerCase()) || e.getAuthor().toLowerCase().contains(keyword.toLowerCase())
+                    || e.getPublisher().toLowerCase().contains(keyword.toLowerCase())).collect(Collectors.toList());
+        } else {
+            System.out.println("Słowo kluczowe powinno zawierać minimum 3 znaki");
+            return null;
+        }
     }
 
     public List<Book> searchByCategory(Category category) {

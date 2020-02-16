@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -117,7 +118,40 @@ public class LibraryTest {
 
         //then
         Assert.assertEquals(1, Library.getCatalogue().size());
+    }
 
+    @Test
+    public void shouldReturnBookByKeyword() {
+        //given
+        String keyword = "bib";
+
+        //when
+        Library library = new Library("KUL");
+        Book book1 = library.createBook("Biblia", "dasd", 1000, Category.CRIMINAL, Condition.GOOD, 1000, "Heaven");
+        Book book2 = library.createBook("Dupa", "dsa", 2000, Category.FANTASY, Condition.BAD, 200, "Helion");
+        library.addBook(book1);
+        library.addBook(book2);
+        List<Book> searchResult = library.searchByKeyword(keyword);
+
+        //then
+        Assert.assertEquals(1, searchResult.size());
+        Assert.assertSame(book1, searchResult.get(0));
+    }
+
+    @Test
+    public void shouldReturnBookByCategory() {
+        //given
+        Category category = Category.FANTASY;
+
+        //when
+        Library library = new Library("KUL");
+        Book book1 = library.createBook("Biblia", "dasd", 1000, Category.FANTASY, Condition.GOOD, 1000, "Heaven");
+        library.addBook(book1);
+        List<Book> searchResult = library.searchByCategory(Category.FANTASY);
+
+        //then
+        Assert.assertEquals(1, searchResult.size());
+        Assert.assertSame(book1, searchResult.get(0));
     }
 
 }

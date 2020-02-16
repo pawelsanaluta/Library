@@ -19,9 +19,9 @@ public class Book {
     private int pages;
     private String publisher;
 
-    public Book(String title, String authorFirstName, String id, int released, Category category, Condition condition, int pages, String publisher) {
+    public Book(String title, String author, String id, int released, Category category, Condition condition, int pages, String publisher) {
         this.title = title;
-        this.author = authorFirstName;
+        this.author = author;
         this.id = id;
         this.released = released;
         this.category = category;
