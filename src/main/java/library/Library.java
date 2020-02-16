@@ -15,20 +15,17 @@ import java.util.stream.Collectors;
 public class Library implements LibraryInterface {
 
     private String name;
-    private final static List<Book> catalogue = new ArrayList<>();
-    private static List<Customer> customers;
-    private static Map<String, Customer> rentals;
+    private final static List<Book> CATALOGUE = new ArrayList<>();
+    private final static List<Customer> CUSTOMERS = new ArrayList<>();
+    private final static Map<String, Customer> RENTALS = new HashMap<>();
 
     public Library(String name) {
         this.name = name;
-//        catalogue = new ArrayList<>();
-        customers = new ArrayList<>();
-        rentals = new HashMap<>();
     }
 
     public Book createBook(String title, String authorFirstName, String authorLastName, int released, Category category, Condition condition, int pages, String publisher) {
         String id = Book.createID();
-        long count = catalogue.stream().filter(e -> e.getId().equals(id)).count();
+        long count = CATALOGUE.stream().filter(e -> e.getId().equals(id)).count();
         if (count == 0) {
             return new Book(title, authorFirstName, authorLastName, id, released, category, condition, pages, publisher);
         } else {
@@ -37,17 +34,17 @@ public class Library implements LibraryInterface {
     }
 
     public void addBook(Book book) {
-        long count = catalogue.stream().filter(e -> e.getId().equals(book.getId())).count();
+        long count = CATALOGUE.stream().filter(e -> e.getId().equals(book.getId())).count();
         if(count == 0) {
             System.out.println("Dodano nową książkę");
-            catalogue.add(book);
+            CATALOGUE.add(book);
         } else {
             System.out.println("Ta książka jest już w katalogu");
         }
     }
 
     public Book getBookByID(String id) {
-        Optional<Book> book = catalogue.stream().filter(e -> e.getId().equals(id)).findAny();
+        Optional<Book> book = CATALOGUE.stream().filter(e -> e.getId().equals(id)).findAny();
         if(book.isPresent()) {
             return book.get();
         } else {
@@ -59,17 +56,17 @@ public class Library implements LibraryInterface {
     public void removeBook(String id) {
         Book book = getBookByID(id);
         if(book != null) {
-            catalogue.remove(book);
+            CATALOGUE.remove(book);
         }
     }
 
     public List<Book> searchByKeyword(String keyword) {
-        return  catalogue.stream().filter(e -> e.getTitle().contains(keyword) || e.getAuthorFirstName().contains(keyword)
+        return  CATALOGUE.stream().filter(e -> e.getTitle().contains(keyword) || e.getAuthorFirstName().contains(keyword)
                 || e.getAuthorLastName().contains(keyword) || e.getPublisher().contains(keyword)).collect(Collectors.toList());
     }
 
     public List<Book> searchByCategory(Category category) {
-        return catalogue.stream().filter(e -> e.getCategory().equals(category)).collect(Collectors.toList());
+        return CATALOGUE.stream().filter(e -> e.getCategory().equals(category)).collect(Collectors.toList());
     }
 
     @Override
