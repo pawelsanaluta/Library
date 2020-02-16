@@ -40,4 +40,23 @@ public class Book {
         }
         return new String(c);
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Tytuł: ")
+                .append(this.title)
+                .append("\tAutor: ")
+                .append(this.author)
+                .append("\tWydana: ")
+                .append(this.released)
+                .append("\tStrony: ")
+                .append(this.pages)
+                .append("\tWydawnictwo: ")
+                .append(publisher)
+                .append("\tTermin zwrotu: ")
+                .append(this.returnDeadLine.toString())
+                .append("\n");
+        return sb.toString();
+    }
 }

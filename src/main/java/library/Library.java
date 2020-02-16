@@ -17,7 +17,7 @@ public class Library implements LibraryInterface {
     private String name;
     private final static List<Book> CATALOGUE = new ArrayList<>();
     private final static List<Customer> CUSTOMERS = new ArrayList<>();
-    private final static Map<String, Customer> RENTALS = new HashMap<>();
+    private final static Map<Book, Customer> RENTALS = new HashMap<>();
 
     public Library(String name) {
         this.name = name;
@@ -31,7 +31,7 @@ public class Library implements LibraryInterface {
         return CUSTOMERS;
     }
 
-    public static Map<String, Customer> getRentals() {
+    public static Map<Book, Customer> getRentals() {
         return RENTALS;
     }
 
@@ -101,7 +101,6 @@ public class Library implements LibraryInterface {
         }
     }
 
-
     @Override
     public Customer searchCustomerByPesel(String pesel) {
         Optional<Customer> customerOptional = CUSTOMERS.stream().filter(e -> e.getPesel().equals(pesel)).findFirst();
@@ -154,8 +153,8 @@ public class Library implements LibraryInterface {
         if(count >= 3) {
             System.out.println("Osiągnięto limit wypożyczonych książek");
         } else {
-            if(!RENTALS.containsKey(id)) {
-                RENTALS.put(id, searchCustomerByPesel(pesel));
+            if(!RENTALS.containsKey(book)) {
+                RENTALS.put(book, searchCustomerByPesel(pesel));
                 book.setReturnDeadLine(LocalDate.now().plusDays(14));
             } else {
                 System.out.println("Książka jest wypożyczona\n"
@@ -166,9 +165,13 @@ public class Library implements LibraryInterface {
 
     @Override
     public String showCustomerRentals(String pesel) {
+        System.out.println(searchCustomerByPesel(pesel).toString());
         StringBuilder sb = new StringBuilder();
-
-
+        for (Map.Entry<Book, Customer> entry : RENTALS.entrySet()) {
+            if(entry.getValue().getPesel().equals(pesel)) {
+               sb.append(entry.getKey().toString());
+            }
+        }
         return sb.toString();
     }
 

@@ -11,22 +11,23 @@ public class BookTest {
     public void shouldCreateNewBook() {
         //given
         String title = "Bible";
-        String authorFirstName = "God";
-//        String authorLastName = "Almighty";
+        String author = "God";
         String id = Book.createID();
         int released = -10000;
-        LocalDate returnDeadLine = null;
+        LocalDate returnDeadLine = LocalDate.now().plusDays(14);
         Category category = Category.FANTASY;
         Condition condition = Condition.GOOD;
         int pages = 1000;
         String publisher = "Heaven";
 
         //when
-        Book book = new Book(title, authorFirstName, id, released, category, condition, pages, publisher);
+        Book book = new Book(title, author, id, released, category, condition, pages, publisher);
+        book.setReturnDeadLine(returnDeadLine);
 
         //then
+        //System.out.println(book.toString());
         Assert.assertEquals(title, book.getTitle());
-        Assert.assertEquals(authorFirstName, book.getAuthor());
+        Assert.assertEquals(author, book.getAuthor());
         Assert.assertEquals(id, book.getId());
         Assert.assertEquals(released, book.getReleased());
         Assert.assertEquals(category, book.getCategory());

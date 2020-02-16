@@ -197,7 +197,19 @@ public class LibraryTest {
 
     }
 
-//    @Test
-//    public void
+    @Test
+    public void shouldShowCustomersRentals() {
+        //given
+        Library library = new Library("KUL");
+        Book book1 = library.createBook("bib", "god", 0, Category.FANTASY, Condition.GOOD, 1000, "heaven");
+        Book book2 = library.createBook("bib1", "god1", 1, Category.FANTASY, Condition.GOOD, 999, "hell");
+        library.addBook(book1);
+        library.addBook(book2);
+        Customer customer = library.createAndAddCustomer("Jan", "pawel", "88012907557", "jan.pawel@drugi.pl", "123456789", null);
+        library.rentBook(book1.getId(), customer.getPesel());
+        library.rentBook(book2.getId(), customer.getPesel());
+
+        System.out.println(library.showCustomerRentals(customer.getPesel()));
+    }
 
 }
