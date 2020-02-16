@@ -12,8 +12,10 @@ public class Address {
     private String houseNumber;
     private String zipCode;
 
-    public Address(String street,String city,String houseNumber,String zipCode){
-
-
+    public Address(String street, String city, String houseNumber, String zipCode) {
+        this.street = street;
+        this.city = city;
+        this.houseNumber = houseNumber;
+        this.zipCode = zipCode;
     }
 }
