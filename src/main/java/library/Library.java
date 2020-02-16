@@ -23,13 +23,25 @@ public class Library implements LibraryInterface {
         this.name = name;
     }
 
-    public Book createBook(String title, String authorFirstName, String authorLastName, int released, Category category, Condition condition, int pages, String publisher) {
+    public static List<Book> getCatalogue() {
+        return CATALOGUE;
+    }
+
+    public static List<Customer> getCustomer() {
+        return CUSTOMERS;
+    }
+
+    public static Map<String, Customer> getRentals() {
+        return RENTALS;
+    }
+
+    public Book createBook(String title, String author, int released, Category category, Condition condition, int pages, String publisher) {
         String id = Book.createID();
         long count = CATALOGUE.stream().filter(e -> e.getId().equals(id)).count();
         if (count == 0) {
-            return new Book(title, authorFirstName, authorLastName, id, released, category, condition, pages, publisher);
+            return new Book(title, author, id, released, category, condition, pages, publisher);
         } else {
-            return createBook(title, authorFirstName, authorLastName, released, category, condition, pages, publisher);
+            return createBook(title, author, released, category, condition, pages, publisher);
         }
     }
 
@@ -56,13 +68,14 @@ public class Library implements LibraryInterface {
     public void removeBook(String id) {
         Book book = getBookByID(id);
         if(book != null) {
+            System.out.println("Usunięto książkę " + book.getTitle());
             CATALOGUE.remove(book);
         }
     }
 
     public List<Book> searchByKeyword(String keyword) {
-        return  CATALOGUE.stream().filter(e -> e.getTitle().contains(keyword) || e.getAuthorFirstName().contains(keyword)
-                || e.getAuthorLastName().contains(keyword) || e.getPublisher().contains(keyword)).collect(Collectors.toList());
+        return  CATALOGUE.stream().filter(e -> e.getTitle().contains(keyword) || e.getAuthor().contains(keyword)
+                || e.getPublisher().contains(keyword)).collect(Collectors.toList());
     }
 
     public List<Book> searchByCategory(Category category) {

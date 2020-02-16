@@ -12,7 +12,7 @@ import java.util.Map;
 
 public interface LibraryInterface {
 
-    Book createBook(String title, String authorFirstName, String authorLastName, int released, Category category, Condition condition, int pages, String publisher);
+    Book createBook(String title, String author, int released, Category category, Condition condition, int pages, String publisher);
     void addBook(Book book);
     Book getBookByID(String id);
     void removeBook(String id);

@@ -8,11 +8,11 @@ import java.time.LocalDate;
 public class BookTest {
 
     @Test
-    public void shouldCreateNewCustomer() {
+    public void shouldCreateNewBook() {
         //given
         String title = "Bible";
         String authorFirstName = "God";
-        String authorLastName = "Almighty";
+//        String authorLastName = "Almighty";
         String id = Book.createID();
         int released = -10000;
         LocalDate returnDeadLine = null;
@@ -22,12 +22,11 @@ public class BookTest {
         String publisher = "Heaven";
 
         //when
-        Book book = new Book(title, authorFirstName, authorLastName, id, released, category, condition, pages, publisher);
+        Book book = new Book(title, authorFirstName, id, released, category, condition, pages, publisher);
 
         //then
         Assert.assertEquals(title, book.getTitle());
-        Assert.assertEquals(authorFirstName, book.getAuthorFirstName());
-        Assert.assertEquals(authorLastName, book.getAuthorLastName());
+        Assert.assertEquals(authorFirstName, book.getAuthor());
         Assert.assertEquals(id, book.getId());
         Assert.assertEquals(released, book.getReleased());
         Assert.assertEquals(category, book.getCategory());

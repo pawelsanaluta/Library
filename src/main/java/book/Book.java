@@ -10,8 +10,7 @@ import java.time.LocalDate;
 public class Book {
 
     private String title;
-    private String authorFirstName;
-    private String authorLastName;
+    private String author;
     private String id;
     private int released;
     private LocalDate returnDeadLine;
@@ -20,10 +19,9 @@ public class Book {
     private int pages;
     private String publisher;
 
-    public Book(String title, String authorFirstName, String authorLastName, String id, int released, Category category, Condition condition, int pages, String publisher) {
+    public Book(String title, String authorFirstName, String id, int released, Category category, Condition condition, int pages, String publisher) {
         this.title = title;
-        this.authorFirstName = authorFirstName;
-        this.authorLastName = authorLastName;
+        this.author = authorFirstName;
         this.id = id;
         this.released = released;
         this.category = category;
