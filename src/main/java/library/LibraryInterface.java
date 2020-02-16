@@ -20,17 +20,15 @@ public interface LibraryInterface {
     List<Book> searchByCategory(Category category);
 
     //robert
-    Customer createCustomer(String firstName, String lastName, String pesel, String email, String phoneNumber,
-                        Map<Approvals, Boolean> approvals, Address address);
-    void addCustomer(Customer customer);
-    void removeCustomer(String pesel);
-    void editCustomer(Customer customer);
+    Customer createAndAddCustomer(String firstName, String lastName, String pesel, String email, String phoneNumber, Address address);
     Customer searchCustomerByPesel(String pesel);
-    Customer searchCustomerByName(String firstName, String lastName);
-    String showCustomerRentals(String pesel);
-
+    List<Customer> searchCustomerByName(String firstName, String lastName);
+    void editCustomer(Customer customer);
+    void removeCustomer(String pesel);
     //Pawel
-    void rentBook(String id);
+
+    void rentBook(String id, String pesel);
+    String showCustomerRentals(String pesel);
     void bookBook(String id);
     void returnBook(String id);
 

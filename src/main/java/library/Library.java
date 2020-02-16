@@ -4,10 +4,10 @@ import book.Book;
 import book.Category;
 import book.Condition;
 import customer.Address;
-import customer.Approvals;
 import customer.Customer;
 import lombok.Getter;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -27,7 +27,7 @@ public class Library implements LibraryInterface {
         return CATALOGUE;
     }
 
-    public static List<Customer> getCustomer() {
+    public static List<Customer> getCustomers() {
         return CUSTOMERS;
     }
 
@@ -88,43 +88,88 @@ public class Library implements LibraryInterface {
     }
 
     @Override
-    public Customer createCustomer(String firstName, String lastName, String pesel, String email, String phoneNumber, Map<Approvals, Boolean> approvals, Address address) {
-        return null;
+    public Customer createAndAddCustomer(String firstName, String lastName, String pesel, String email, String phoneNumber, Address address) {
+        long count = Library.getCustomers().stream().filter(e -> e.getPesel().equals(pesel)).count();
+        if(count == 0) {
+            System.out.println("Klient dodany do bazy");
+            Customer customer = new Customer(firstName, lastName, pesel, email, phoneNumber, address);
+            CUSTOMERS.add(customer);
+            return customer;
+        } else {
+            System.out.println("Klient istnieje już w bazie");
+            return null;
+        }
+    }
+
+
+    @Override
+    public Customer searchCustomerByPesel(String pesel) {
+        Optional<Customer> customerOptional = CUSTOMERS.stream().filter(e -> e.getPesel().equals(pesel)).findFirst();
+        if(customerOptional.isPresent()) {
+            return customerOptional.get();
+        } else {
+            System.out.println("Brak takiego numeru pesel w bazie danych");
+            return null;
+        }
     }
 
     @Override
-    public void addCustomer(Customer customer) {
-
-    }
-
-    @Override
-    public void removeCustomer(String pesel) {
-
+    public List<Customer> searchCustomerByName(String firstName, String lastName) {
+        List<Customer> customers = CUSTOMERS.stream().filter(e -> e.getFirstName().contains(firstName) && e.getLastName().contains(lastName)).collect(Collectors.toList());
+        if(customers.size() != 0) {
+            return customers;
+        } else {
+            System.out.println("Brak takiego klienta w bazie danych");
+            return null;
+        }
     }
 
     @Override
     public void editCustomer(Customer customer) {
-
+        Customer edited = searchCustomerByPesel(customer.getPesel());
+        if(CUSTOMERS.contains(edited)) {
+            edited.setFirstName(customer.getFirstName());
+            edited.setLastName(customer.getLastName());
+            edited.setAddress(customer.getAddress());
+            edited.setPhoneNumber(customer.getPhoneNumber());
+            edited.setEmail(customer.getEmail());
+        } else {
+            System.out.println("Brak takiego klienta w bazie danych");
+        }
     }
 
     @Override
-    public Customer searchCustomerByPesel(String pesel) {
-        return null;
+    public void removeCustomer(String pesel) {
+        Optional<Customer> customerOptional = CUSTOMERS.stream().filter(e-> e.getPesel().equals(pesel)).findFirst();
+        customerOptional.ifPresent(CUSTOMERS::remove);
+        if(customerOptional.isEmpty()) {
+            System.out.println("Brak klienta o podanym numerze pesel");
+        }
     }
 
     @Override
-    public Customer searchCustomerByName(String firstName, String lastName) {
-        return null;
+    public void rentBook(String id, String pesel) {
+        Book book = getBookByID(id);
+        long count = RENTALS.entrySet().stream().filter(e -> e.getValue().getPesel().equals(pesel)).count();
+        if(count >= 3) {
+            System.out.println("Osiągnięto limit wypożyczonych książek");
+        } else {
+            if(!RENTALS.containsKey(id)) {
+                RENTALS.put(id, searchCustomerByPesel(pesel));
+                book.setReturnDeadLine(LocalDate.now().plusDays(14));
+            } else {
+                System.out.println("Książka jest wypożyczona\n"
+                        + "Termin zwrotu dla tej książki to " + book.getReturnDeadLine());
+            }
+        }
     }
 
     @Override
     public String showCustomerRentals(String pesel) {
-        return null;
-    }
+        StringBuilder sb = new StringBuilder();
 
-    @Override
-    public void rentBook(String id) {
 
+        return sb.toString();
     }
 
     @Override

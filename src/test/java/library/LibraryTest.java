@@ -3,6 +3,8 @@ package library;
 import book.Book;
 import book.Category;
 import book.Condition;
+import customer.Address;
+import customer.Customer;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -153,5 +155,49 @@ public class LibraryTest {
         Assert.assertEquals(1, searchResult.size());
         Assert.assertSame(book1, searchResult.get(0));
     }
+
+    @Test
+    public void shouldCreateAndAddCustomer() {
+        //given
+        String firstName = "Jan";
+        String lastName = "Paweł";
+        String pesel = "75031627968";
+        String email = "jan.pawel@drugi.vt";
+        String phoneNumber = "666666666";
+        Address address = null;
+
+        //when
+        Library library = new Library("KUL");
+        Customer customer = library.createAndAddCustomer(firstName, lastName, pesel, email, phoneNumber, null);
+
+        //then
+        Assert.assertEquals(1, Library.getCustomers().size());
+        Assert.assertSame(customer, Library.getCustomers().get(0));
+    }
+
+    @Test
+    public void shouldReturnCustomerByPesel() {
+        //given
+        String firstName = "Jan";
+        String lastName = "Paweł";
+        String pesel = "75031627968";
+        String email = "jan.pawel@drugi.vt";
+        String phoneNumber = "666666666";
+        Address address = null;
+
+        //when
+        Library library = new Library("KUL");
+        Customer customer1 = library.createAndAddCustomer(firstName, lastName, pesel, email, phoneNumber, null);
+        Customer customer2 = library.searchCustomerByPesel("75031627968");
+        Customer customer3 = library.createAndAddCustomer(firstName, lastName, "82102945762", email, phoneNumber, null);
+        boolean result = customer2.equals(customer3);
+
+        //then
+        Assert.assertFalse(result);
+
+    }
+
+//    @Test
+//    public void
 
 }

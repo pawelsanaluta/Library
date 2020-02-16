@@ -4,16 +4,16 @@ import validators.EmailValidator;
 import validators.EmptyValidator;
 import validators.PeselValidator;
 import validators.PhoneValidator;
+import lombok.*;
 
+import java.util.HashMap;
 import java.util.Map;
 
+@Setter
+@Getter
 public class Customer {
+
     private String firstName;
-
-    public String getEmail() {
-        return email;
-    }
-
     private String lastName;
     private String pesel;
     private String email;
@@ -21,8 +21,12 @@ public class Customer {
     private Map<Approvals, Boolean> approvals;
     private Address address;
 
+    public String getEmail() {
+        return email;
+    }
+
     public Customer(String firstName, String lastName, String pesel, String email, String phoneNumber,
-                    Map<Approvals, Boolean> approvals, Address address) throws IllegalArgumentException {
+                    Address address) throws IllegalArgumentException {
         if (EmptyValidator.validate(firstName)) {
             this.firstName = firstName;
         } else {
@@ -38,20 +42,23 @@ public class Customer {
         } else {
             throw new IllegalArgumentException("Niepoprawne pesel");
         }
-        if (EmailValidator.validate(email)){
+        if (EmailValidator.validate(email)) {
             this.email = email;
-        }
-        else{
+        } else {
             throw new IllegalArgumentException("Niepoprawny email");
         }
-        if (PhoneValidator.validate(phoneNumber)){
+        if (PhoneValidator.validate(phoneNumber)) {
             this.phoneNumber = phoneNumber;
-        }
-        else{
+        } else {
             throw new IllegalArgumentException("Niepoprawny numer telefonu");
         }
         this.address = address;
+        this.approvals = new HashMap<>();
+        this.approvals.put(Approvals.PERSONAL_DATA_PROCESSING, true);
+        this.approvals.put(Approvals.MARKETING, true);
+    }
 
-        this.approvals = approvals;
+    public void setApprovals(Approvals approval, boolean value) {
+        this.approvals.put(approval, value);
     }
 }
