@@ -56,29 +56,6 @@ public class Customer {
         this.approvals.put(Approvals.MARKETING, true);
     }
 
-    public void showCustomers(List<Customer> customerList){
-        for (Customer c :customerList) {
-            System.out.println(getFirstName() + " " + getLastName() + " Pesel: " + getPesel());
-            System.out.println("Dane kontaktowe:");
-            System.out.print(String.format("Numer telefonu %-20s", c.getPhoneNumber()));
-            System.out.print(String.format("Adres email %-20s", c.getEmail()));
-            System.out.println(String.format(" %-20s", c.getAddress().toString()));
-            System.out.println("Zgody: ");
-            System.out.println(String.format("%-20s",c.getApprovals().toString()));
-
-        }
-    }
-    @Override
-    public String toString() {
-        return "Klient: " +
-                " firstName" + firstName + '\'' +
-                " lastName" + lastName + '\'' +
-                " pesel" + pesel + '\'' +
-                " email" + email + '\'' +
-                " phoneNumber" + phoneNumber + '\'' +
-                " approvals" + approvals +
-                " address" + address;
-    }
 
     public void setApprovals(Approvals approval, boolean value) {
         this.approvals.put(approval, value);

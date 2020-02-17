@@ -4,11 +4,9 @@ import book.Book;
 import book.Category;
 import book.Condition;
 import customer.Address;
-import customer.Approvals;
 import customer.Customer;
 
 import java.util.List;
-import java.util.Map;
 
 public interface LibraryInterface {
 
@@ -23,7 +21,7 @@ public interface LibraryInterface {
     Customer createAndAddCustomer(String firstName, String lastName, String pesel, String email, String phoneNumber, Address address);
     Customer searchCustomerByPesel(String pesel);
     List<Customer> searchCustomerByName(String firstName, String lastName);
-    void editCustomer(Customer customer);
+    Customer editCustomer(Customer customer);
     void removeCustomer(String pesel);
     //Pawel
 

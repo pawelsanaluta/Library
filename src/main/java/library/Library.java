@@ -18,7 +18,6 @@ public class Library implements LibraryInterface {
     private final static List<Book> CATALOGUE = new ArrayList<>();
     private final static List<Customer> CUSTOMERS = new ArrayList<>();
     private final static Map<Book, Customer> RENTALS = new HashMap<>();
-
     public Library(String name) {
         this.name = name;
     }
@@ -33,6 +32,18 @@ public class Library implements LibraryInterface {
 
     public static Map<Book, Customer> getRentals() {
         return RENTALS;
+    }
+
+    public static void showCustomers(List<Customer> customerList){
+        for (Customer c :customerList) {
+            System.out.println(c.getFirstName() + " " + c.getLastName() + " Pesel: " + c.getPesel());
+            System.out.println("Dane kontaktowe:");
+            System.out.print(String.format("Numer telefonu: %-25s",c.getPhoneNumber()));
+            System.out.print(String.format("Adres email: %-25s", c.getEmail()));
+            System.out.println(String.format(" %-25s", c.getAddress().toString()));
+            System.out.println("Zgody: ");
+            System.out.println(String.format("%-20s",c.getApprovals().toString()));
+        }
     }
 
     public Book createBook(String title, String author, int released, Category category, Condition condition, int pages, String publisher) {
@@ -126,7 +137,7 @@ public class Library implements LibraryInterface {
     }
 
     @Override
-    public void editCustomer(Customer customer) {
+    public Customer editCustomer(Customer customer) {
         Customer edited = searchCustomerByPesel(customer.getPesel());
         if(CUSTOMERS.contains(edited)) {
             edited.setFirstName(customer.getFirstName());
@@ -137,6 +148,7 @@ public class Library implements LibraryInterface {
         } else {
             System.out.println("Brak takiego klienta w bazie danych");
         }
+        return edited;
     }
 
     @Override

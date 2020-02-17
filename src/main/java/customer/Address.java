@@ -37,6 +37,6 @@ public class Address {
 
     @Override
     public String toString() {
-        return "Address:" + city + " " + zipCode + " " + street + " " + addressNumber;
+        return "Address: " + city + " " + zipCode + " ul. " + street + " " + addressNumber;
     }
 }

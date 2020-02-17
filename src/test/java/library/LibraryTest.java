@@ -5,6 +5,7 @@ import book.Category;
 import book.Condition;
 import customer.Address;
 import customer.Customer;
+import org.apache.http.util.Asserts;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +18,7 @@ import static org.junit.Assert.*;
 public class LibraryTest {
 
     @Before
-    public void before(){
+    public void before() {
         Library.getCatalogue().clear();
     }
 
@@ -48,7 +49,7 @@ public class LibraryTest {
     }
 
     @Test
-    public void shouldAddBookToTHeLibrary() {
+    public void shouldAddBookToTheLibrary() {
         //given
         String title = "Bible";
         String author = "God";
@@ -196,6 +197,81 @@ public class LibraryTest {
         Assert.assertFalse(result);
 
     }
+
+    @Test
+    public void shouldReturnCustomerByName() {
+        //given
+        String firstName = "Jan";
+        String lastName = "Paweł";
+        String pesel = "75031627968";
+        String email = "jan.pawel@drugi.tv";
+        String phoneNumber = "666666666";
+        Address address = null;
+
+        String firstName1 = "Karol";
+        String lastName1 = "Wojtyła";
+        String pesel1 = "82102945762";
+        String email1 = "karol.wojtyla69@hell.tv";
+        String phoneNumber1 = "666666666";
+        Address address1 = null;
+
+        //when
+        Library library = new Library("KUL");
+        List<Customer> customerList;
+        List<Customer> customerList1;
+        Customer customer1 = library.createAndAddCustomer(firstName, lastName, pesel, email, phoneNumber, address);
+        Customer customer2 = library.createAndAddCustomer(firstName1, lastName1, pesel1, email1, phoneNumber1, address1);
+        customerList = library.searchCustomerByName(firstName, lastName);
+        customerList1 = library.searchCustomerByName(firstName1, lastName1);
+
+        boolean result = customer1.equals(customerList.get(0));
+        boolean result1 = customer2.equals(customerList.get(0));
+        boolean result2 = customerList.get(0).getPesel().equals(customerList1.get(0).getPesel());
+
+        //then
+        Assert.assertEquals(1, customerList.size());
+        Assert.assertEquals(customer1.getFirstName(), customerList.get(0).getFirstName());
+        Assert.assertEquals(customer1.getLastName(), customerList.get(0).getLastName());
+        Assert.assertEquals(customer1.getPesel(), customerList.get(0).getPesel());
+        Assert.assertFalse(result1);
+        Assert.assertTrue(result);
+        Assert.assertFalse(result1);
+        Assert.assertFalse(result2);
+
+    }
+
+    @Test
+    public void shouldCheckIfCustomerDataIsEditable() {
+        //given
+        String firstName = "Jan";
+        String lastName = "Paweł";
+        String pesel = "75031627968";
+        String email = "jan.pawel@drugi.tv";
+        String phoneNumber = "666666666";
+        Address address = null;
+        Library library = new Library("KUL");
+        Customer customer = library.createAndAddCustomer(firstName, lastName, pesel, email, phoneNumber, address);
+//        Customer customer1 = library.createAndAddCustomer("Amon", "Amrath", "76123006614",
+//                "aa@aa.aa", "123456789",
+//                new Address("Jakaś", "Miasto", "1", "20-000"));
+        //when
+        Customer edited = library.searchCustomerByPesel(pesel);
+        edited.setFirstName("Karol");
+        edited.setLastName("Paweł");
+        edited.setAddress(new Address("Limbo", "Hell", "69", "66-666"));
+        edited.setPhoneNumber("999999999");
+        edited.setEmail("fuckYou@you.motherfucker");
+        boolean isCustomerPeselBeforeAndAfterEditTheSame = customer.getPesel().equals(edited.getPesel());
+        //then
+        Assert.assertTrue(isCustomerPeselBeforeAndAfterEditTheSame);
+        Assert.assertEquals(1, Library.getCustomers().size());
+        Assert.assertEquals(lastName, edited.getLastName());
+        Assert.assertNotEquals(firstName, edited.getFirstName());
+        Assert.assertNotEquals(email, edited.getEmail());
+        Assert.assertNotEquals(phoneNumber, edited.getPhoneNumber());
+        Assert.assertNotEquals(address, edited.getAddress());
+    }
+
 
     @Test
     public void shouldShowCustomersRentals() {
