@@ -7,48 +7,50 @@ import customer.Address;
 import customer.Customer;
 import lombok.Getter;
 
+import java.io.*;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Getter
-public class Library implements LibraryInterface {
+public class Library implements LibraryInterface, Serializable {
 
     private String name;
-    private final static List<Book> CATALOGUE = new ArrayList<>();
-    private final static List<Customer> CUSTOMERS = new ArrayList<>();
-    private final static Map<Book, Customer> RENTALS = new HashMap<>();
+    private List<Book> catalogue = new ArrayList<>();
+    private List<Customer> customers = new ArrayList<>();
+    private Map<Book, Customer> rentals = new HashMap<>();
+
     public Library(String name) {
         this.name = name;
     }
 
-    public static List<Book> getCatalogue() {
-        return CATALOGUE;
+    public List<Book> getCatalogue() {
+        return catalogue;
     }
 
-    public static List<Customer> getCustomers() {
-        return CUSTOMERS;
+    public List<Customer> getCustomers() {
+        return customers;
     }
 
-    public static Map<Book, Customer> getRentals() {
-        return RENTALS;
+    public Map<Book, Customer> getRentals() {
+        return this.rentals;
     }
 
-    public static void showCustomers(List<Customer> customerList){
-        for (Customer c :customerList) {
+    public static void showCustomers(List<Customer> customerList) {
+        for (Customer c : customerList) {
             System.out.println(c.getFirstName() + " " + c.getLastName() + " Pesel: " + c.getPesel());
             System.out.println("Dane kontaktowe:");
-            System.out.print(String.format("Numer telefonu: %-25s",c.getPhoneNumber()));
+            System.out.print(String.format("Numer telefonu: %-25s", c.getPhoneNumber()));
             System.out.print(String.format("Adres email: %-25s", c.getEmail()));
             System.out.println(String.format(" %-25s", c.getAddress().toString()));
             System.out.println("Zgody: ");
-            System.out.println(String.format("%-20s",c.getApprovals().toString()));
+            System.out.println(String.format("%-20s", c.getApprovals().toString()));
         }
     }
 
     public Book createBook(String title, String author, int released, Category category, Condition condition, int pages, String publisher) {
         String id = Book.createID();
-        long count = CATALOGUE.stream().filter(e -> e.getId().equals(id)).count();
+        long count = this.catalogue.stream().filter(e -> e.getId().equals(id)).count();
         if (count == 0) {
             return new Book(title, author, id, released, category, condition, pages, publisher);
         } else {
@@ -57,18 +59,18 @@ public class Library implements LibraryInterface {
     }
 
     public void addBook(Book book) {
-        long count = CATALOGUE.stream().filter(e -> e.getId().equals(book.getId())).count();
-        if(count == 0) {
+        long count = this.catalogue.stream().filter(e -> e.getId().equals(book.getId())).count();
+        if (count == 0) {
             System.out.println("Dodano nową książkę");
-            CATALOGUE.add(book);
+            this.catalogue.add(book);
         } else {
             System.out.println("Ta książka jest już w katalogu");
         }
     }
 
     public Book getBookByID(String id) {
-        Optional<Book> book = CATALOGUE.stream().filter(e -> e.getId().equals(id)).findAny();
-        if(book.isPresent()) {
+        Optional<Book> book = this.catalogue.stream().filter(e -> e.getId().equals(id)).findAny();
+        if (book.isPresent()) {
             return book.get();
         } else {
             System.out.println("Brak takiej książki w katalogu");
@@ -78,15 +80,15 @@ public class Library implements LibraryInterface {
 
     public void removeBook(String id) {
         Book book = getBookByID(id);
-        if(book != null) {
+        if (book != null) {
             System.out.println("Usunięto książkę " + book.getTitle());
-            CATALOGUE.remove(book);
+            this.catalogue.remove(book);
         }
     }
 
     public List<Book> searchByKeyword(String keyword) {
-        if(keyword.length() > 2) {
-            return  CATALOGUE.stream().filter(e -> e.getTitle().toLowerCase().contains(keyword.toLowerCase()) || e.getAuthor().toLowerCase().contains(keyword.toLowerCase())
+        if (keyword.length() > 2) {
+            return this.catalogue.stream().filter(e -> e.getTitle().toLowerCase().contains(keyword.toLowerCase()) || e.getAuthor().toLowerCase().contains(keyword.toLowerCase())
                     || e.getPublisher().toLowerCase().contains(keyword.toLowerCase())).collect(Collectors.toList());
         } else {
             System.out.println("Słowo kluczowe powinno zawierać minimum 3 znaki");
@@ -95,16 +97,16 @@ public class Library implements LibraryInterface {
     }
 
     public List<Book> searchByCategory(Category category) {
-        return CATALOGUE.stream().filter(e -> e.getCategory().equals(category)).collect(Collectors.toList());
+        return this.catalogue.stream().filter(e -> e.getCategory().equals(category)).collect(Collectors.toList());
     }
 
     @Override
     public Customer createAndAddCustomer(String firstName, String lastName, String pesel, String email, String phoneNumber, Address address) {
-        long count = Library.getCustomers().stream().filter(e -> e.getPesel().equals(pesel)).count();
-        if(count == 0) {
-            System.out.println("Klient dodany do bazy");
+        long count = getCustomers().stream().filter(e -> e.getPesel().equals(pesel)).count();
+        if (count == 0) {
             Customer customer = new Customer(firstName, lastName, pesel, email, phoneNumber, address);
-            CUSTOMERS.add(customer);
+            System.out.println("Klient dodany do bazy");
+            this.customers.add(customer);
             return customer;
         } else {
             System.out.println("Klient istnieje już w bazie");
@@ -114,21 +116,21 @@ public class Library implements LibraryInterface {
 
     @Override
     public Customer searchCustomerByPesel(String pesel) {
-        Optional<Customer> customerOptional = CUSTOMERS.stream().filter(e -> e.getPesel().equals(pesel)).findFirst();
-        if(customerOptional.isPresent()) {
+        Optional<Customer> customerOptional = customers.stream().filter(e -> e.getPesel().equals(pesel)).findFirst();
+        if (customerOptional.isPresent()) {
             return customerOptional.get();
         } else {
-            System.out.println("Brak takiego numeru pesel w bazie danych");
+            System.out.println("Brak takiego klienta w bazie danych");
             return null;
         }
     }
 
     @Override
     public List<Customer> searchCustomerByName(String firstName, String lastName) {
-        List<Customer> customers = CUSTOMERS.stream().filter(e -> e.getFirstName()
+        List<Customer> customers = this.customers.stream().filter(e -> e.getFirstName()
                 .contains(firstName) && e.getLastName().contains(lastName))
                 .collect(Collectors.toList());
-        if(customers.size() != 0) {
+        if (customers.size() != 0) {
             return customers;
         } else {
             System.out.println("Brak takiego klienta w bazie danych");
@@ -137,38 +139,65 @@ public class Library implements LibraryInterface {
     }
 
     @Override
-    public Customer editCustomer(Customer customer) {
-        Customer edited = searchCustomerByPesel(customer.getPesel());
-        if(CUSTOMERS.contains(edited)) {
-            edited.setFirstName(customer.getFirstName());
-            edited.setLastName(customer.getLastName());
-            edited.setAddress(customer.getAddress());
-            edited.setPhoneNumber(customer.getPhoneNumber());
-            edited.setEmail(customer.getEmail());
-        } else {
-            System.out.println("Brak takiego klienta w bazie danych");
+    public void editCustomerFirstName(String pesel, String firstName) {
+        Customer edited = searchCustomerByPesel(pesel);
+        if (edited != null) {
+            edited.setFirstName(firstName);
         }
-        return edited;
+    }
+
+    @Override
+    public void editCustomerLastName(String pesel, String lastName) {
+        Customer edited = searchCustomerByPesel(pesel);
+        if (edited != null) {
+            edited.setLastName(lastName);
+        }
+    }
+
+    @Override
+    public void editCustomerEmail(String pesel, String email) {
+        Customer edited = searchCustomerByPesel(pesel);
+        if (edited != null) {
+            edited.setEmail(email);
+        }
+    }
+
+    @Override
+    public void editCustomerPhoneNumber(String pesel, String phoneNumber) {
+        Customer edited = searchCustomerByPesel(pesel);
+        if (edited != null) {
+            edited.setPhoneNumber(phoneNumber);
+        }
+    }
+
+    @Override
+    public void editCustomerAddress(String pesel, Address address) {
+        Customer edited = searchCustomerByPesel(pesel);
+        if (edited != null) {
+            edited.setAddress(address);
+        }
     }
 
     @Override
     public void removeCustomer(String pesel) {
-        Optional<Customer> customerOptional = CUSTOMERS.stream().filter(e-> e.getPesel().equals(pesel)).findFirst();
-        customerOptional.ifPresent(CUSTOMERS::remove);
-        if(customerOptional.isEmpty()) {
+        Optional<Customer> customerOptional = this.customers.stream().filter(e -> e.getPesel().equals(pesel)).findFirst();
+        customerOptional.ifPresent(this.customers::remove);
+        if (customerOptional.isEmpty()) {
             System.out.println("Brak klienta o podanym numerze pesel");
+        } else {
+            System.out.println("Usunięto klienta nr " + customerOptional.get().getPesel());
         }
     }
 
     @Override
     public void rentBook(String id, String pesel) {
         Book book = getBookByID(id);
-        long count = RENTALS.entrySet().stream().filter(e -> e.getValue().getPesel().equals(pesel)).count();
-        if(count >= 3) {
+        long count = this.rentals.entrySet().stream().filter(e -> e.getValue().getPesel().equals(pesel)).count();
+        if (count >= 3) {
             System.out.println("Osiągnięto limit wypożyczonych książek");
         } else {
-            if(!RENTALS.containsKey(book)) {
-                RENTALS.put(book, searchCustomerByPesel(pesel));
+            if (!this.rentals.containsKey(book)) {
+                this.rentals.put(book, searchCustomerByPesel(pesel));
                 book.setReturnDeadLine(LocalDate.now().plusDays(14));
             } else {
                 System.out.println("Książka jest wypożyczona\n"
@@ -181,62 +210,120 @@ public class Library implements LibraryInterface {
     public String showCustomerRentals(String pesel) {
         System.out.println(searchCustomerByPesel(pesel).toString());
         StringBuilder sb = new StringBuilder();
-        for (Map.Entry<Book, Customer> entry : RENTALS.entrySet()) {
-            if(entry.getValue().getPesel().equals(pesel)) {
-               sb.append(entry.getKey().toString());
+        for (Map.Entry<Book, Customer> entry : this.rentals.entrySet()) {
+            if (entry.getValue().getPesel().equals(pesel)) {
+                sb.append(entry.getKey().toString());
             }
         }
         return sb.toString();
     }
 
     @Override
-    public void bookBook(String id) {
-
-    }
-
-    @Override
     public void returnBook(String id) {
-
+        Book book = getBookByID(id);
+        if (this.rentals.containsKey(book)) {
+            this.rentals.remove(book);
+            System.out.println("Zwrócono książkę \"" + book.getTitle() + "\"");
+        } else {
+            System.out.println("Brak książki w bazie wypożyczeń");
+        }
     }
 
     @Override
     public void saveData() {
-
+        this.saveCatalogue();
+        this.saveCustomers();
+        this.saveRentals();
     }
 
     @Override
-    public void saveCustomers(String filename) {
-
+    public void saveCustomers() {
+        try {
+            FileOutputStream fos = new FileOutputStream("customers.txt");
+            ObjectOutputStream oot = new ObjectOutputStream(fos);
+            oot.writeObject(this.customers);
+            oot.close();
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public void saveCatalogue(String filename) {
-
+    public void saveCatalogue() {
+        try {
+            FileOutputStream fos = new FileOutputStream("catalogue.txt");
+            ObjectOutputStream oot = new ObjectOutputStream(fos);
+            oot.writeObject(this.catalogue);
+            oot.close();
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public void saveRentals(String filename) {
-
+    public void saveRentals() {
+        try {
+            FileOutputStream fos = new FileOutputStream("rentals.txt");
+            ObjectOutputStream oot = new ObjectOutputStream(fos);
+            oot.writeObject(this.rentals);
+            oot.close();
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void readData() {
-
+        this.readCatalogue();
+        this.readCustomers();
+        this.readRentals();
     }
 
     @Override
-    public void readCustomers(String filename) {
-
+    public void readCustomers() {
+        ArrayList<Customer> customers = new ArrayList<>();
+        try {
+            FileInputStream fis = new FileInputStream("customers.txt");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            customers = (ArrayList) ois.readObject();
+            ois.close();
+            fis.close();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        this.customers = customers;
     }
 
     @Override
-    public void readCatalogue(String filename) {
-
+    public void readCatalogue() {
+        ArrayList<Book> catalogue = new ArrayList<>();
+        try {
+            FileInputStream fis = new FileInputStream("catalogue.txt");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            catalogue = (ArrayList) ois.readObject();
+            ois.close();
+            fis.close();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        this.catalogue = catalogue;
     }
 
     @Override
-    public void readRentals(String filename) {
-
+    public void readRentals() {
+        HashMap<Book, Customer> rentals = new HashMap<>();
+        try {
+            FileInputStream fis = new FileInputStream("rentals.txt");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            rentals = (HashMap) ois.readObject();
+            ois.close();
+            fis.close();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        this.rentals = rentals;
     }
-
 }

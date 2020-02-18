@@ -2,12 +2,13 @@ package book;
 
 import lombok.*;
 
+import java.io.Serializable;
 import java.security.SecureRandom;
 import java.time.LocalDate;
 
 @Getter
 @Setter
-public class Book {
+public class Book implements Serializable {
 
     private String title;
     private String author;

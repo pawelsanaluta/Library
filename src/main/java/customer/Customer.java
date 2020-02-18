@@ -6,13 +6,14 @@ import validators.PeselValidator;
 import validators.PhoneValidator;
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Setter
 @Getter
-public class Customer {
+public class Customer implements Serializable {
 
     private String firstName;
     private String lastName;
@@ -37,7 +38,7 @@ public class Customer {
         if (PeselValidator.validate(pesel)) {
             this.pesel = pesel;
         } else {
-            throw new IllegalArgumentException("Niepoprawne pesel");
+            throw new IllegalArgumentException("Niepoprawny pesel");
         }
         if (EmailValidator.validate(email)) {
             this.email = email;
