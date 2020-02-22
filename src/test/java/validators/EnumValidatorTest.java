@@ -33,7 +33,7 @@ public class EnumValidatorTest {
         //then
         Assert.assertFalse(result);
     }
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void shouldCheckIfIncorrect(){
         //given
         String toValidate = "nowel";
