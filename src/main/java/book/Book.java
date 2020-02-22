@@ -47,19 +47,19 @@ public class Book implements Serializable {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Tytuł: ")
-                .append(this.title)
-                .append("\tAutor: ")
-                .append(this.author)
-                .append("\tWydana: ")
-                .append(this.released)
-                .append("\tStrony: ")
-                .append(this.pages)
-                .append("\tWydawnictwo: ")
-                .append(publisher)
-                .append("\tTermin zwrotu: ")
-                .append(this.returnDeadLine.toString())
-                .append("\n");
+        sb.append(String.format("%8s", "Autor: "));
+        sb.append(String.format("%-25s ", this.author));
+        sb.append(String.format("%8s", "Tytuł: "));
+        sb.append(String.format("%-25s ", this.title));
+        sb.append(String.format("%10s", "Wydana: "));
+        sb.append(String.format("%-8s ", this.released));
+        sb.append(String.format("%8s", "Strony: "));
+        sb.append(String.format("%-6s ", this.pages));
+        sb.append(String.format("%8s", "Wydawnictwo: "));
+        sb.append(String.format("%-6s ", this.pages));
+        sb.append(String.format("%16s ", "Termin zwrotu: "));
+        sb.append(String.format("%-15s ", this.returnDeadLine.toString()));
+        sb.append("\n");
         return sb.toString();
     }
 }

@@ -7,5 +7,12 @@ public enum Category {
     ROMANCE,
     CRIMINAL,
     PRESS,
-    THRILLER
+    THRILLER;
+
+    public static void showBookCategories() {
+        for (Category c : values()) {
+            System.out.print(c.toString().toLowerCase() + " ");
+        }
+        System.out.println("\n");
+    }
 }

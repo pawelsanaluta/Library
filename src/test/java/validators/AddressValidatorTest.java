@@ -6,7 +6,7 @@ import org.junit.Test;
 
 public class AddressValidatorTest {
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void shouldCheckIfCityIsNull() {
         //given
         String city = null;
@@ -17,7 +17,8 @@ public class AddressValidatorTest {
         //then
         Assert.assertFalse(result);
     }
-    @Test
+
+    @Test(expected = IllegalArgumentException.class)
     public void shouldCheckIfCityIsEmpty() {
         //given
         String city = "";
@@ -27,7 +28,8 @@ public class AddressValidatorTest {
         //then
         Assert.assertFalse(result);
     }
-    @Test
+
+    @Test(expected = IllegalArgumentException.class)
     public void shouldCheckIfStreetContainsSpace() {
         //given
         String city1 = " ";
@@ -41,7 +43,8 @@ public class AddressValidatorTest {
         Assert.assertFalse(result1);
         Assert.assertTrue(result2);
     }
-    @Test
+
+    @Test(expected = IllegalArgumentException.class)
     public void shouldCheckIfCityIsValid() {
         //given
         String city1 = "Lublin";
@@ -55,7 +58,8 @@ public class AddressValidatorTest {
         Assert.assertTrue(result1);
         Assert.assertTrue(result2);
     }
-    @Test
+
+    @Test(expected = IllegalArgumentException.class)
     public void shouldCheckIfStreetIsNull() {
         //given
         String street = null;
@@ -65,7 +69,8 @@ public class AddressValidatorTest {
         //then
         Assert.assertFalse(result);
     }
-    @Test
+
+    @Test(expected = IllegalArgumentException.class)
     public void shouldCheckIfStreetIsEmpty() {
         //given
         String street = "";
@@ -75,7 +80,8 @@ public class AddressValidatorTest {
         //then
         Assert.assertFalse(result);
     }
-    @Test
+
+    @Test(expected = IllegalArgumentException.class)
     public void shouldCheckIStreetContainsSpace() {
         //given
         String street1 = " ";
@@ -89,6 +95,7 @@ public class AddressValidatorTest {
         Assert.assertFalse(result1);
         Assert.assertTrue(result2);
     }
+
     @Test
     public void shouldCheckIfStreetIsValid() {
         //given
@@ -103,7 +110,8 @@ public class AddressValidatorTest {
         Assert.assertTrue(result1);
         Assert.assertTrue(result2);
     }
-    @Test
+
+    @Test(expected = IllegalArgumentException.class)
     public void shouldCheckIfNumberIsNull() {
         //given
         String number = null;
@@ -113,7 +121,8 @@ public class AddressValidatorTest {
         //then
         Assert.assertFalse(result);
     }
-    @Test
+
+    @Test(expected = IllegalArgumentException.class)
     public void shouldCheckIfNumberIsEmpty() {
         //given
         String number = "";
@@ -123,7 +132,8 @@ public class AddressValidatorTest {
         //then
         Assert.assertFalse(result);
     }
-    @Test
+
+    @Test(expected = IllegalArgumentException.class)
     public void shouldCheckIfNumberContainsSpace() {
         //given
         String number1 = " ";
@@ -137,6 +147,7 @@ public class AddressValidatorTest {
         Assert.assertFalse(result1);
         Assert.assertTrue(result2);
     }
+
     @Test
     public void shouldCheckIfNumberIsValid() {
         //given
@@ -151,8 +162,9 @@ public class AddressValidatorTest {
         Assert.assertTrue(result1);
         Assert.assertTrue(result2);
     }
-    @Test
-    public void shouldCheckIfZipCodeIsNull(){
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldCheckIfZipCodeIsNull() {
         //given
         String zipCode = null;
         //when
@@ -161,8 +173,9 @@ public class AddressValidatorTest {
         //then
         Assert.assertFalse(result);
     }
-    @Test
-    public void shouldCheckIfZipCodeIsEmpty(){
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldCheckIfZipCodeIsEmpty() {
         //given
         String zipCode = "";
         //when
@@ -171,8 +184,9 @@ public class AddressValidatorTest {
         //then
         Assert.assertFalse(result);
     }
-    @Test
-    public void shouldCheckIfZipCodeContainsSpace(){
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldCheckIfZipCodeContainsSpace() {
         //given
         String zipCode = " ";
         //when
@@ -181,8 +195,9 @@ public class AddressValidatorTest {
         //then
         Assert.assertFalse(result);
     }
-    @Test
-    public void shouldCheckIfZipCodeHas6Chars(){
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldCheckIfZipCodeHas6Chars() {
         //given
         String zipCode = "asdfgr";
         //when
@@ -191,8 +206,9 @@ public class AddressValidatorTest {
         //then
         Assert.assertFalse(result);
     }
-    @Test
-    public void shouldCheckIfZipCodeHas6Numbers(){
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldCheckIfZipCodeHas6Numbers() {
         //given
         String zipCode = "214456";
         //when
@@ -201,8 +217,9 @@ public class AddressValidatorTest {
         //then
         Assert.assertFalse(result);
     }
-    @Test
-    public void shouldCheckIfZipCodeHas5Chars(){
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldCheckIfZipCodeHas5Chars() {
         //given
         String zipCode = "assfe";
         //when
@@ -211,8 +228,9 @@ public class AddressValidatorTest {
         //then
         Assert.assertFalse(result);
     }
+
     @Test
-    public void shouldCheckIfZipCodeHas5Numbers(){
+    public void shouldCheckIfZipCodeHas5Numbers() {
         //given
         String zipCode = "12456";
         //when
@@ -221,8 +239,9 @@ public class AddressValidatorTest {
         //then
         Assert.assertTrue(result);
     }
-    @Test
-    public void shouldCheckIfZipCodeHas5NumbersAndOneChar(){
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldCheckIfZipCodeHas5NumbersAndOneChar() {
         //given
         String zipCode1 = "12456-";
         String zipCode2 = "1-2456";
@@ -235,8 +254,9 @@ public class AddressValidatorTest {
         Assert.assertFalse(result1);
         Assert.assertFalse(result2);
     }
-    @Test
-    public void shouldCheckIfZipCodeHas5NumbersAndOneCharAtGoodIndex(){
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldCheckIfZipCodeHas5NumbersAndOneCharAtGoodIndex() {
         //given
         String zipCode1 = "12-456";
         String zipCode2 = "1a-456";

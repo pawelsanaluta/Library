@@ -7,6 +7,7 @@ import customer.Address;
 import customer.Customer;
 
 import java.util.List;
+import java.util.Map;
 
 public interface LibraryInterface {
 
@@ -21,6 +22,8 @@ public interface LibraryInterface {
     List<Book> searchByKeyword(String keyword);
 
     List<Book> searchByCategory(Category category);
+
+    List<Book> viewAvailableBooks();
 
     Customer createAndAddCustomer(String firstName, String lastName, String pesel, String email, String phoneNumber, Address address);
 
@@ -45,6 +48,12 @@ public interface LibraryInterface {
     String showCustomerRentals(String pesel);
 
     void returnBook(String id);
+
+    String showAllRentals();
+
+    Map<Book, Customer> showDeadlineComing();
+
+    Map<Book, Customer> showDeadlineExceeded();
 
     void saveData();
 

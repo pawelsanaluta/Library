@@ -109,6 +109,16 @@ public class Library implements LibraryInterface, Serializable {
     }
 
     @Override
+    public List<Book> viewAvailableBooks() {
+        List<Book> available = this.catalogue;
+        for (Map.Entry<Book, Customer> entry : this.rentals.entrySet()) {
+            Book book = entry.getKey();
+            available.remove(book);
+        }
+        return available;
+    }
+
+    @Override
     public Customer createAndAddCustomer(String firstName, String lastName, String pesel, String email, String phoneNumber, Address address) {
         long count = getCustomers().stream().filter(e -> e.getPesel().equals(pesel)).count();
         if (count == 0) {
@@ -235,6 +245,49 @@ public class Library implements LibraryInterface, Serializable {
         } else {
             System.out.println("Brak książki w bazie wypożyczeń");
         }
+    }
+
+
+    @Override
+    public String showAllRentals() {
+        StringBuilder sb = new StringBuilder();
+        for (Map.Entry<Book, Customer> entry : this.rentals.entrySet()) {
+            sb.append(entry.getKey().getTitle())
+                    .append("; ")
+                    .append(entry.getKey().getAuthor())
+                    .append("; ID: ")
+                    .append(entry.getKey().getId());
+            sb.append(" Rented by: ")
+                    .append(entry.getValue().getFirstName())
+                    .append(" ")
+                    .append(entry.getValue().getLastName())
+                    .append(" ID: ")
+                    .append(entry.getValue().getPesel());
+        }
+        sb.append("\n");
+        return sb.toString();
+    }
+
+    @Override
+    public Map<Book, Customer> showDeadlineComing() {
+        Map<Book, Customer> coming = new HashMap<>();
+        for (Map.Entry<Book, Customer> entry : this.rentals.entrySet()) {
+            if (entry.getKey().getReturnDeadLine().plusDays(4).isAfter(LocalDate.now())) {
+                coming.put(entry.getKey(), entry.getValue());
+            }
+        }
+        return coming;
+    }
+
+    @Override
+    public Map<Book, Customer> showDeadlineExceeded() {
+        Map<Book, Customer> exceeded = new HashMap<>();
+        for (Map.Entry<Book, Customer> entry : this.rentals.entrySet()) {
+            if(entry.getKey().getReturnDeadLine().isAfter(LocalDate.now())) {
+                exceeded.put(entry.getKey(), entry.getValue());
+            }
+        }
+        return exceeded;
     }
 
     @Override

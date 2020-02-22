@@ -36,4 +36,25 @@ public class BookTest {
         Assert.assertEquals(publisher, book.getPublisher());
 
     }
+
+    @Test
+    public void shouldViewBookDetails() {
+        //given
+        String title = "Bible";
+        String author = "God";
+        String id = Book.createID();
+        int released = -10000;
+        LocalDate returnDeadLine = LocalDate.now().plusDays(14);
+        Category category = Category.FANTASY;
+        Condition condition = Condition.GOOD;
+        int pages = 1000;
+        String publisher = "Heaven";
+
+        //when
+        Book book = new Book(title, author, id, released, category, condition, pages, publisher);
+        book.setReturnDeadLine(returnDeadLine);
+
+        //then
+        System.out.println(book.toString());
+    }
 }
