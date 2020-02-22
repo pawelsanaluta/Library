@@ -6,12 +6,13 @@ import org.junit.Test;
 
 public class AddressValidatorTest {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test (expected = IllegalArgumentException.class)
     public void shouldCheckIfCityIsNull() {
         //given
         String city = null;
         //when
-        Address address = new Address("", city, "1", "11111");
+        Address address = new Address("rojhitpr", city, "1", "11-111");
+        System.out.println(address.getCity()+ address.getStreet());
         boolean result = AddressValidator.validateCity(address.getCity());
         System.out.println(result);
         //then

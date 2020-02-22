@@ -7,7 +7,8 @@ public enum Category {
     ROMANCE,
     CRIMINAL,
     PRESS,
-    THRILLER;
+    THRILLER
+;
 
     public static void showBookCategories() {
         for (Category c : values()) {
