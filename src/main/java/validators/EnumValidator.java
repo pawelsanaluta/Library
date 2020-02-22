@@ -16,10 +16,7 @@ public class EnumValidator {
             System.out.println("Kategoria książek nie może zawierać samych spacji");
             return false;
         }
-        if (toValidate.contains(Category.getCategories())){
 
-        }
-//    }
         return true;
     }
 }

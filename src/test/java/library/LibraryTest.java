@@ -9,7 +9,10 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -444,6 +447,62 @@ public class LibraryTest {
         Assert.assertTrue(result1);
     }
 
-//    @Test
-//    public void should
+    @Test
+    public void shouldMapRentalDeadlineComing() {
+        //given
+        Library library = Library.getInstance();
+        library.createAndAddCustomer("Jan", "pawel", "67092102689", "jan@pawel.dr", "123456789", null);
+        library.createAndAddCustomer("Ben", "szesnasty", "79051804437", "ben@16.vt", "987654321", null);
+        library.createAndAddCustomer("Fra", "pierwszy", "98112804528", "fran@ciszek.dr", "321654987", null);
+        Book book1 = library.createBook("bib", "god", 0, Category.FANTASY, Condition.GOOD, 1000, "heaven");
+        Book book2 = library.createBook("bib1", "god1", 1, Category.FANTASY, Condition.GOOD, 999, "hell");
+        Book book3 = library.createBook("bib2", "god2", 1, Category.FANTASY, Condition.BAD, 998, "jesus");
+        library.addBook(book1);
+        library.addBook(book2);
+        library.addBook(book3);
+        library.rentBook(book1.getId(), "67092102689");
+        library.rentBook(book2.getId(), "98112804528");
+
+        //when
+        LocalDate returnDate = LocalDate.of(2020, 2,24);
+        book1.setReturnDeadLine(returnDate);
+        Map<Book, Customer> deadlineComing = library.mapDeadlineComing();
+        boolean result = deadlineComing.containsKey(book1);
+        boolean result2 = deadlineComing.containsKey(book2);
+
+        //then
+        Assert.assertEquals(1, deadlineComing.size());
+        Assert.assertTrue(result);
+        Assert.assertFalse(result2);
+
+    }
+
+    @Test
+    public void shouldMapExceededReturnDeadline() {
+        //given
+        Library library = Library.getInstance();
+        library.createAndAddCustomer("Jan", "pawel", "67092102689", "jan@pawel.dr", "123456789", null);
+        library.createAndAddCustomer("Ben", "szesnasty", "79051804437", "ben@16.vt", "987654321", null);
+        library.createAndAddCustomer("Fra", "pierwszy", "98112804528", "fran@ciszek.dr", "321654987", null);
+        Book book1 = library.createBook("bib", "god", 0, Category.FANTASY, Condition.GOOD, 1000, "heaven");
+        Book book2 = library.createBook("bib1", "god1", 1, Category.FANTASY, Condition.GOOD, 999, "hell");
+        Book book3 = library.createBook("bib2", "god2", 1, Category.FANTASY, Condition.BAD, 998, "jesus");
+        library.addBook(book1);
+        library.addBook(book2);
+        library.addBook(book3);
+
+        //when
+        library.rentBook(book1.getId(), "67092102689");
+        library.rentBook(book2.getId(), "98112804528");
+        book1.setReturnDeadLine(LocalDate.now().minusDays(3));
+        Map<Book, Customer> deadlineExc = library.mapDeadlineExceeded();
+        boolean result1 = deadlineExc.containsKey(book1);
+        boolean result2 = deadlineExc.containsKey(book2);
+
+        //then
+        Assert.assertEquals(1, deadlineExc.size());
+        Assert.assertTrue(result1);
+        Assert.assertFalse(result2);
+
+    }
 }

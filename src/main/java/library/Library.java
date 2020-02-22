@@ -269,10 +269,11 @@ public class Library implements LibraryInterface, Serializable {
     }
 
     @Override
-    public Map<Book, Customer> showDeadlineComing() {
+    public Map<Book, Customer> mapDeadlineComing() {
         Map<Book, Customer> coming = new HashMap<>();
         for (Map.Entry<Book, Customer> entry : this.rentals.entrySet()) {
-            if (entry.getKey().getReturnDeadLine().plusDays(4).isAfter(LocalDate.now())) {
+            if ((entry.getKey().getReturnDeadLine().isAfter(LocalDate.now()) || entry.getKey().getReturnDeadLine().isEqual(LocalDate.now()))
+                    && entry.getKey().getReturnDeadLine().isBefore(LocalDate.now().plusDays(4))) {
                 coming.put(entry.getKey(), entry.getValue());
             }
         }
@@ -280,10 +281,10 @@ public class Library implements LibraryInterface, Serializable {
     }
 
     @Override
-    public Map<Book, Customer> showDeadlineExceeded() {
+    public Map<Book, Customer> mapDeadlineExceeded() {
         Map<Book, Customer> exceeded = new HashMap<>();
         for (Map.Entry<Book, Customer> entry : this.rentals.entrySet()) {
-            if(entry.getKey().getReturnDeadLine().isAfter(LocalDate.now())) {
+            if(entry.getKey().getReturnDeadLine().isBefore(LocalDate.now())) {
                 exceeded.put(entry.getKey(), entry.getValue());
             }
         }
