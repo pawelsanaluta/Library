@@ -420,7 +420,7 @@ public class LibraryTest {
     }
 
     @Test
-    public void shouldViewAvailableBooks() {
+    public void shouldListAvailableBooks() {
         //given
         Library library = Library.getInstance();
         library.createAndAddCustomer("Jan", "pawel", "67092102689", "jan@pawel.dr", "123456789", null);
@@ -436,11 +436,14 @@ public class LibraryTest {
         //when
         library.rentBook(book1.getId(), "79051804437");
         library.rentBook(book3.getId(), "79051804437");
-        List<Book> available = library.viewAvailableBooks();
+        List<Book> available = library.listAvailableBooks();
         boolean result1 = available.get(0).getId().equals(book2.getId());
 
         //then
         Assert.assertEquals(1, available.size());
         Assert.assertTrue(result1);
     }
+
+//    @Test
+//    public void should
 }

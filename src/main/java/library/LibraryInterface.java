@@ -51,9 +51,9 @@ public interface LibraryInterface {
 
     String showAllRentals();
 
-    Map<Book, Customer> showDeadlineComing();
+    Map<Book, Customer> mapDeadlineComing();
 
-    Map<Book, Customer> showDeadlineExceeded();
+    Map<Book, Customer> mapDeadlineExceeded();
 
     void saveData();
 

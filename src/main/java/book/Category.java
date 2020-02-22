@@ -16,12 +16,13 @@ public enum Category {
 
     private static List<Category> categories = new ArrayList<>();
 
-    public List<Category> getCategories() {
-        return categories;
-    }
-
-    public static void listCategories() {
-        Collections.addAll(categories, values());
+    public static List<Category> listCategories() {
+        List<Category> list = new ArrayList<>();
+        Category[] values = Category.values();
+        for (int i = 0; i < values.length; i++) {
+            list.add(values[i]);
+        }
+        return list;
     }
 
     public static void showBookCategories() {
