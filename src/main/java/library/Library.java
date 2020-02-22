@@ -109,7 +109,7 @@ public class Library implements LibraryInterface, Serializable {
     }
 
     @Override
-    public List<Book> viewAvailableBooks() {
+    public List<Book> listAvailableBooks() {
         List<Book> available = this.catalogue;
         for (Map.Entry<Book, Customer> entry : this.rentals.entrySet()) {
             Book book = entry.getKey();

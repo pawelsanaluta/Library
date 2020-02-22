@@ -418,4 +418,29 @@ public class LibraryTest {
         Assert.assertTrue(result2);
         Assert.assertTrue(result3);
     }
+
+    @Test
+    public void shouldViewAvailableBooks() {
+        //given
+        Library library = Library.getInstance();
+        library.createAndAddCustomer("Jan", "pawel", "67092102689", "jan@pawel.dr", "123456789", null);
+        library.createAndAddCustomer("Ben", "szesnasty", "79051804437", "ben@16.vt", "987654321", null);
+        library.createAndAddCustomer("Fra", "pierwszy", "98112804528", "fran@ciszek.dr", "321654987", null);
+        Book book1 = library.createBook("bib", "god", 0, Category.FANTASY, Condition.GOOD, 1000, "heaven");
+        Book book2 = library.createBook("bib1", "god1", 1, Category.FANTASY, Condition.GOOD, 999, "hell");
+        Book book3 = library.createBook("bib2", "god2", 1, Category.FANTASY, Condition.BAD, 998, "jesus");
+        library.addBook(book1);
+        library.addBook(book2);
+        library.addBook(book3);
+
+        //when
+        library.rentBook(book1.getId(), "79051804437");
+        library.rentBook(book3.getId(), "79051804437");
+        List<Book> available = library.viewAvailableBooks();
+        boolean result1 = available.get(0).getId().equals(book2.getId());
+
+        //then
+        Assert.assertEquals(1, available.size());
+        Assert.assertTrue(result1);
+    }
 }

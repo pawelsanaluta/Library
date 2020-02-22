@@ -23,7 +23,7 @@ public interface LibraryInterface {
 
     List<Book> searchByCategory(Category category);
 
-    List<Book> viewAvailableBooks();
+    List<Book> listAvailableBooks();
 
     Customer createAndAddCustomer(String firstName, String lastName, String pesel, String email, String phoneNumber, Address address);
 
