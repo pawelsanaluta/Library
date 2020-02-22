@@ -2,7 +2,9 @@ package menu;
 
 import book.Book;
 import book.Category;
+import com.sun.source.tree.IfTree;
 import library.Library;
+import validators.EnumValidator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -97,25 +99,68 @@ public class LibraryMenu {
                 Category.showBookCategories();
                 System.out.println("Podaj kategorię: ");
                 String category = scanner.next().toUpperCase().trim();
-                library.searchByCategory(Category.valueOf(category));
+                if (EnumValidator.enumValidate(category)){
+                    library.searchByCategory(Category.valueOf(category));
+                }else{
+                    System.out.println("Podaj kategorię ponownie");
+                    Category.showBookCategories();
+                }
                 break;
             case 4:
-                System.out.println("Podaj imię i nazwisko autora");
-                String firstAndLastName = scanner.next();
-                if (!firstAndLastName.contains(" ")){
-                    System.out.println("Błędne dane wejściowe, podaj imię i nazwisko autora");
-                }
-                String[] firstName = firstAndLastName.split(" ");
-
+                showLibraryMenu();
+                break;
         }
     }
 
     private void catalogue() {
         showCatalogueMenu();
+        int input = scanner.nextInt();
+        switch(input){
+            case 1:
+                System.out.println("Podaj tytuł książki: ");
+                String title = scanner.next();
+                System.out.println("Podaj autora książki");
+                String author = scanner.next();
+                System.out.println("Podaj rok wydania książki w formacie yyyy");
+                int released = scanner.nextInt();
+                System.out.println("Podaj kategorię książki: ");
+                System.out.println("Dostępne kategorie: ");
+                Category.showBookCategories();
+                String category = scanner.next().toUpperCase().trim();
+                if (EnumValidator.enumValidate(category)){
+                    library.searchByCategory(Category.valueOf(category));
+                }else{
+                    System.out.println("Podaj kategorię ponownie");
+                    Category.showBookCategories();
+                }
+
+        }
     }
 
     private void customer() {
         showCustomerMenu();
+        int profil = scanner.nextInt();
+        switch (profil){
+            case 6:
+                showCustomerMenuSearchCustomer();
+                int searchCustomer = scanner.nextInt();
+                if (searchCustomer==1){
+                    System.out.println("Podaj numer PESEL czytelnika");
+                    String pesel = scanner.next();
+                    library.searchCustomerByPesel(pesel);
+                }
+                if (searchCustomer==2){
+                    System.out.println("Podaj imię i nazwisko czytelnika");
+                    String firstAndLastName = scanner.next();
+                    if (!firstAndLastName.contains(" ")){
+                        System.out.println("Błędne dane wejściowe, podaj imię i nazwisko czytelnika");
+                    }
+                    String[] afterDivision = firstAndLastName.split(" ");
+                    String firstName = afterDivision[0];
+                    String lastName = afterDivision[1];
+                    library.searchCustomerByName(firstName, lastName);
+                }
+        }
     }
 
 }

@@ -29,7 +29,7 @@ public class LibraryMenuUtils {
         LIBRARY_MENU_SEARCH_BOOK.put(1, "Wyszukaj książki po ID");
         LIBRARY_MENU_SEARCH_BOOK.put(2, "Wyszukaj książki po słowie kluczowym");
         LIBRARY_MENU_SEARCH_BOOK.put(3, "Wyszukaj książki po kategorii");
-        LIBRARY_MENU_SEARCH_BOOK.put(4, "Wyszukaj książki po autorze");
+        LIBRARY_MENU_SEARCH_BOOK.put(4, "Powrót do głównego menu");
         CATALOGUE_MENU.put(1, "Dodaj książke");
         CATALOGUE_MENU.put(2, "Edytuj książkę");
         CATALOGUE_MENU.put(3, "Usuń książkę");
@@ -39,8 +39,9 @@ public class LibraryMenuUtils {
         CUSTOMER_MENU.put(2, "Edytuj profil");
         CUSTOMER_MENU.put(3, "Edytuj zgody marketingowe");
         CUSTOMER_MENU.put(4, "Usuń profil");
-        CUSTOMER_MENU.put(5, "Wyświetl wszystkich cztelników");
-        CUSTOMER_MENU.put(6, "Powrót do głównego menu");
+        CUSTOMER_MENU.put(5, "Znajdź czytelnika");
+        CUSTOMER_MENU.put(6, "Wyświetl wszystkich cztelników");
+        CUSTOMER_MENU.put(7, "Powrót do głównego menu");
         CUSTOMER_MENU_SEARCH_CUSTOMER.put(1, "Znajdź czytelnika po numerze PESEL");
         CUSTOMER_MENU_SEARCH_CUSTOMER.put(2, "Znajdź czytelnika po imieniu i nazwisku");
 
