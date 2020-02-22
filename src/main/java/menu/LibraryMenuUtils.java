@@ -49,26 +49,26 @@ public class LibraryMenuUtils {
 
     static void showMenu() {
         System.out.println("***** WITAJ W BIBLIOTECE ****");
-        COMMANDS.forEach((key, val) -> System.out.println(String.format("%s:%-5s", key, val)));
+        COMMANDS.forEach((key, val) -> System.out.println(String.format("%s:%-10s", key, val)));
     }
 
     static void showLibraryMenu() {
-        LIBRARY_MENU.forEach((key, val) -> System.out.println(String.format("%-20s:,%-20s", key, val)));
+        LIBRARY_MENU.forEach((key, val) -> System.out.println(String.format("%s:%-10s", key, val)));
     }
 
     static void showLibraryMenuSearchBook() {
-        LIBRARY_MENU_SEARCH_BOOK.forEach((key, val) -> System.out.println(String.format("%-20s:,%-20s", key, val)));
+        LIBRARY_MENU_SEARCH_BOOK.forEach((key, val) -> System.out.println(String.format("%s:%-10s", key, val)));
     }
 
     static void showCatalogueMenu() {
-        CATALOGUE_MENU.forEach((key, val) -> System.out.println(String.format("%-20s:,%-20s", key, val)));
+        CATALOGUE_MENU.forEach((key, val) -> System.out.println(String.format("%s:%-10s", key, val)));
     }
 
     static void showCustomerMenu() {
-        CUSTOMER_MENU.forEach((key, val) -> System.out.println(String.format("%-20s:,%-20s", key, val)));
+        CUSTOMER_MENU.forEach((key, val) -> System.out.println(String.format("%s:%-10s", key, val)));
     }
 
     static void showCustomerMenuSearchCustomer() {
-        CUSTOMER_MENU_SEARCH_CUSTOMER.forEach((key, val) -> System.out.println(String.format("%-20s:,%-20s", key, val)));
+        CUSTOMER_MENU_SEARCH_CUSTOMER.forEach((key, val) -> System.out.println(String.format("%s:%-10s", key, val)));
     }
 }

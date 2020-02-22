@@ -135,7 +135,7 @@ public class LibraryMenu {
                     System.out.println("Podaj kategorię ponownie");
                     Category.showBookCategories();
                 }
-                System.out.println("Podaj stan książki - wybierz 1, lub 3:  1. Dobry, 2. Sredni, 3. Zły");
+                System.out.println("Podaj stan książki - wybierz:  1. Dobry, 2. Sredni, 3. Zły");
                 Condition bookCondition = null;
                 int condition = scanner.nextInt();
                 if (condition!=1 && condition !=2 && condition!=3){
