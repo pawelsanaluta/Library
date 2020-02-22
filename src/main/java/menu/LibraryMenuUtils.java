@@ -12,9 +12,9 @@ public class LibraryMenuUtils {
     static Map<Integer, String> CUSTOMER_MENU_SEARCH_CUSTOMER = new LinkedHashMap<>();
 
     static {
-        COMMANDS.put(1, "Biblioteka");
-        COMMANDS.put(2, "Katalog");
-        COMMANDS.put(3, "Czytelnik");
+        COMMANDS.put(1, "Biblioteka (katalog książek, czytelników/dostępne/wypożyczone ksiażki terminy zwrotów/wyszukiwarka)");
+        COMMANDS.put(2, "Katalog (dodaj/edytuj/usuń książke)");
+        COMMANDS.put(3, "Czytelnik(dodaj/edytuj/usuń/znajdź/wyświetl wszystich)");
         COMMANDS.put(4, "Wyjście");
         LIBRARY_MENU.put(1, "Katalog książek");
         LIBRARY_MENU.put(2, "Katalog czytelników");
@@ -31,10 +31,9 @@ public class LibraryMenuUtils {
         LIBRARY_MENU_SEARCH_BOOK.put(3, "Wyszukaj książki po kategorii");
         LIBRARY_MENU_SEARCH_BOOK.put(4, "Powrót do głównego menu");
         CATALOGUE_MENU.put(1, "Dodaj książke");
-        CATALOGUE_MENU.put(2, "Edytuj książkę");
-        CATALOGUE_MENU.put(3, "Usuń książkę");
-        CATALOGUE_MENU.put(4, "Wyświetl wszystkie pozycje");
-        CATALOGUE_MENU.put(5, "Powrót do głównego menu");
+        CATALOGUE_MENU.put(2, "Usuń książkę");
+        CATALOGUE_MENU.put(3, "Wyświetl wszystkie pozycje");
+        CATALOGUE_MENU.put(4, "Powrót do głównego menu");
         CUSTOMER_MENU.put(1, "Dodaj profil");
         CUSTOMER_MENU.put(2, "Edytuj profil");
         CUSTOMER_MENU.put(3, "Edytuj zgody marketingowe");

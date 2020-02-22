@@ -6,6 +6,7 @@ import book.Condition;
 import com.sun.source.tree.IfTree;
 import library.Library;
 import validators.EnumValidator;
+import validators.PeselValidator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -49,33 +50,82 @@ public class LibraryMenu {
 
     private void library() {
         showLibraryMenu();
+        String finish;
+        String pesel;
         int input = scanner.nextInt();
         boolean end = true;
         while (end) {
             switch (input) {
                 case 1:
+                    library.showCatalogue();
+                    System.out.println("Wciśnij [enter] aby wrócić do menu");
+                    finish = scanner.next();
+                    if (finish.equals("")){
+                        showLibraryMenu();
+                    }
                     break;
                 case 2:
                     Library.showCustomers(library.getCustomers());
+                    System.out.println("Wciśnij [enter] aby wrócić do menu");
+                    finish = scanner.next();
+                    if (finish.equals("")){
+                        showLibraryMenu();
+                    }
                     break;
                 case 3:
-                    //aktualnie dostępne
+                    library.listAvailableBooks();
+                    System.out.println("Wciśnij [enter] aby wrócić do menu");
+                    finish = scanner.next();
+                    if (finish.equals("")){
+                        showLibraryMenu();
+                    }
                     break;
                 case 4:
-                    //aktualnie wypożyczone
+                    library.showAllRentals();
+                    System.out.println("Wciśnij [enter] aby wrócić do menu");
+                    finish = scanner.next();
+                    if (finish.equals("")){
+                        showLibraryMenu();
+                    }
                     break;
                 case 5:
-                    //zbliżający sie termin oddania
+                    library.mapDeadlineComing();
+                    System.out.println("Wciśnij [enter] aby wrócić do menu");
+                    finish = scanner.next();
+                    if (finish.equals("")){
+                        showLibraryMenu();
+                    }
                     break;
                 case 6:
-                    //książki po terminie
+                    library.mapDeadlineExceeded();
+                    System.out.println("Wciśnij [enter] aby wrócić do menu");
+                    finish = scanner.next();
+                    if (finish.equals("")){
+                        showLibraryMenu();
+                    }
                     break;
                 case 7:
                     searchingBooks();
-
+                    break;
                 case 8:
+                    System.out.println("Podaj id książki: ");
+                    String id = scanner.next();
+                    System.out.println("Podaj PESEL czytelnika");
+                    pesel = scanner.next();
+                    if (PeselValidator.validate(pesel)){
+                        library.rentBook(id,pesel);
+                    }
+                    System.out.println("Wypożyczono książkę: " + library.getBookByID(id) + " klientowi: " + library.searchCustomerByPesel(pesel));
+                    break;
                 case 9:
+                    System.out.println("Podaj PESEL czytelnika: ");
+                    pesel = scanner.next();
+                    if (PeselValidator.validate(pesel)){
+                        library.showCustomerRentals(pesel);
+                    }
+                    break;
                 case 0:
+                    showMenu();
 
             }
         }
@@ -155,8 +205,30 @@ public class LibraryMenu {
                 int pages = scanner.nextInt();
                 System.out.println("Podaj wydawcę książki: ");
                 String publisher = scanner.next();
-                library.createBook(title, author, released, c , bookCondition, pages, publisher);
+                library.addBook(library.createBook(title, author, released, c , bookCondition, pages, publisher));
+                break;
+
+            case 2:
+                System.out.println("Podaj ID książki do usunięcia: ");
+                String id = scanner.next();
+                System.out.println("Czy jesteś pewien, że chcesz usunąć książkę: " + library.getBookByID(id) + "y/n");
+                String y_n = scanner.next();
+                if (y_n.equals("y")){
+                    System.out.println("Usunięto książkę: " + library.getBookByID(id));
+                    library.removeBook(id);
+                }
+                if (y_n.equals("n")){
+                    showCatalogueMenu();
+                }
+                break;
+            case 3:
+                library.showCatalogue();
+                break;
+            case 4:
+                showLibraryMenu();
+                break;
         }
+
     }
 
     private void customer() {
