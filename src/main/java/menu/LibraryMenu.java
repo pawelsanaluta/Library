@@ -15,15 +15,15 @@ public class LibraryMenu {
     Library library;
     private final Scanner scanner = new Scanner(System.in);
 
-    public void readAndExecute(){
+    public void readAndExecute() {
         showMenu();
         int input = scanner.nextInt();
-        if (input > 4){
+        if (input > 4) {
             System.out.println("Nie ma takiej pozycji w menu!!!");
         }
         boolean end = true;
         while (end) {
-            switch (input){
+            switch (input) {
                 case 1:
                     library();
                     break;
@@ -47,9 +47,9 @@ public class LibraryMenu {
     private void library() {
         showLibraryMenu();
         int input = scanner.nextInt();
-        boolean end =true;
-        while (end){
-            switch(input){
+        boolean end = true;
+        while (end) {
+            switch (input) {
                 case 1:
                     break;
                 case 2:
@@ -81,7 +81,7 @@ public class LibraryMenu {
     public void searchingBooks() {
         showLibraryMenuSearchBook();
         int searchingMethod = scanner.nextInt();
-        switch (searchingMethod){
+        switch (searchingMethod) {
             case 1:
                 System.out.println("Podaj ID książki: ");
                 String bookID = scanner.next();
@@ -93,9 +93,19 @@ public class LibraryMenu {
                 library.searchByKeyword(keyWord);
                 break;
             case 3:
-                System.out.println("Dostępne kategorie książek:");
-
+                System.out.print("Dostępne kategorie książek: ");
+                Category.showBookCategories();
                 System.out.println("Podaj kategorię: ");
+                String category = scanner.next().toUpperCase().trim();
+                library.searchByCategory(Category.valueOf(category));
+                break;
+            case 4:
+                System.out.println("Podaj imię i nazwisko autora");
+                String firstAndLastName = scanner.next();
+                if (!firstAndLastName.contains(" ")){
+                    System.out.println("Błędne dane wejściowe, podaj imię i nazwisko autora");
+                }
+                String[] firstName = firstAndLastName.split(" ");
 
         }
     }
@@ -103,6 +113,7 @@ public class LibraryMenu {
     private void catalogue() {
         showCatalogueMenu();
     }
+
     private void customer() {
         showCustomerMenu();
     }
