@@ -23,6 +23,8 @@ public class Customer implements Serializable {
     private Map<Approvals, Boolean> approvals;
     private Address address;
 
+    private static final long serialVersionUID = 1L;
+
     public Customer(String firstName, String lastName, String pesel, String email, String phoneNumber,
                     Address address) throws IllegalArgumentException {
         if (EmptyValidator.validate(firstName)) {

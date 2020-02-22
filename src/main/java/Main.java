@@ -7,7 +7,7 @@ public class Main {
        System.out.println("chuj");
         Customer customer = new Customer("Lucyfer", "SejtanSon", "70060146936", "wreoigj@erpoghj.pl",
                 "123456789", null);
-        Library library = new Library("Kul");
+        Library library = Library.getInstance();
         library.createAndAddCustomer("chuj", "dupa", "70060146936", "wreoigj@erpoghj.pl",
                 "123456789", new Address("Limbo", "Hell", "69", "66-666"));
     }

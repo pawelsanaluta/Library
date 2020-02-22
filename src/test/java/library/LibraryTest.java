@@ -6,14 +6,21 @@ import book.Condition;
 import customer.Address;
 import customer.Customer;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
-
 import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.Assert.*;
 
 public class LibraryTest {
+
+    @Before
+    public void before() {
+        Library.getInstance().getRentals().clear();
+        Library.getInstance().getCatalogue().clear();
+        Library.getInstance().getCustomers().clear();
+    }
 
     @Test
     public void shouldCreateNewBook() {
@@ -28,7 +35,7 @@ public class LibraryTest {
         String publisher = "Heaven";
 
         //when
-        Library library = new Library("KUL");
+        Library library = Library.getInstance();
         Book book = library.createBook(title, author, released, category, condition, pages, publisher);
 
         //then
@@ -53,7 +60,7 @@ public class LibraryTest {
         String publisher = "Heaven";
 
         //when
-        Library library = new Library("KUL");
+        Library library = Library.getInstance();
         Book book = library.createBook(title, author, released, category, condition, pages, publisher);
         library.addBook(book);
 
@@ -74,7 +81,7 @@ public class LibraryTest {
         String publisher = "Heaven";
 
         //when
-        Library library = new Library("KUL");
+        Library library = Library.getInstance();
         Book book = library.createBook(title, author, released, category, condition, pages, publisher);
         String id = book.getId();
         library.addBook(book);
@@ -103,7 +110,7 @@ public class LibraryTest {
         String publisher1 = "Heaven";
 
         //when
-        Library library = new Library("KUL");
+        Library library = Library.getInstance();
         Book book = library.createBook(title, author, released, category, condition, pages, publisher);
         Book book1 = library.createBook(title1, author1, released1, category1, condition1, pages1, publisher1);
         String id = book.getId();
@@ -121,7 +128,7 @@ public class LibraryTest {
         String keyword = "bib";
 
         //when
-        Library library = new Library("KUL");
+        Library library = Library.getInstance();
         Book book1 = library.createBook("Biblia", "dasd", 1000, Category.CRIMINAL, Condition.GOOD, 1000, "Heaven");
         Book book2 = library.createBook("Dupa", "dsa", 2000, Category.FANTASY, Condition.BAD, 200, "Helion");
         library.addBook(book1);
@@ -139,7 +146,7 @@ public class LibraryTest {
         Category category = Category.FANTASY;
 
         //when
-        Library library = new Library("KUL");
+        Library library = Library.getInstance();
         Book book1 = library.createBook("Biblia", "dasd", 1000, Category.FANTASY, Condition.GOOD, 1000, "Heaven");
         library.addBook(book1);
         List<Book> searchResult = library.searchByCategory(Category.FANTASY);
@@ -160,7 +167,7 @@ public class LibraryTest {
         Address address = null;
 
         //when
-        Library library = new Library("KUL");
+        Library library = Library.getInstance();
         Customer customer = library.createAndAddCustomer(firstName, lastName, pesel, email, phoneNumber, null);
 
         //then
@@ -179,7 +186,7 @@ public class LibraryTest {
         Address address = null;
 
         //when
-        Library library = new Library("KUL");
+        Library library = Library.getInstance();
         Customer customer1 = library.createAndAddCustomer(firstName, lastName, pesel, email, phoneNumber, null);
         Customer customer2 = library.searchCustomerByPesel("75031627968");
         Customer customer3 = library.createAndAddCustomer(firstName, lastName, "82102945762", email, phoneNumber, null);
@@ -207,7 +214,7 @@ public class LibraryTest {
         Address address1 = null;
 
         //when
-        Library library = new Library("KUL");
+        Library library = Library.getInstance();
         List<Customer> customerList;
         List<Customer> customerList1;
         Customer customer1 = library.createAndAddCustomer(firstName, lastName, pesel, email, phoneNumber, address);
@@ -239,7 +246,7 @@ public class LibraryTest {
         String email1 = "jan.pawel@drugi.tv";
         String phoneNumber1 = "666666666";
         Address address1 = new Address("jaroslawa", "lublin", "8", "20-100");
-        Library library = new Library("KUL");
+        Library library = Library.getInstance();
         Customer customer = library.createAndAddCustomer(firstName1, lastName1, pesel1, email1, phoneNumber1, address1);
 
         //when
@@ -271,7 +278,7 @@ public class LibraryTest {
     @Test
     public void shouldShowCustomersRentals() {
         //given
-        Library library = new Library("KUL");
+        Library library = Library.getInstance();
         Book book1 = library.createBook("bib", "god", 0, Category.FANTASY, Condition.GOOD, 1000, "heaven");
         Book book2 = library.createBook("bib1", "god1", 1, Category.FANTASY, Condition.GOOD, 999, "hell");
         library.addBook(book1);
@@ -286,7 +293,7 @@ public class LibraryTest {
     @Test
     public void shouldRemoveCustomer() {
         //given
-        Library library1 = new Library("KUL");
+        Library library1 = Library.getInstance();
         library1.createAndAddCustomer("Jan", "pawel", "67092102689", "jan@pawel.dr", "123456789", null);
         library1.createAndAddCustomer("Ben", "szesnasty", "79051804437", "ben@16.vt", "987654321", null);
         library1.createAndAddCustomer("Fra", "pierwszy", "98112804528", "fran@ciszek.dr", "321654987", null);
@@ -307,7 +314,7 @@ public class LibraryTest {
     @Test
     public void shouldRemoveObjectFromRentals() {
         //given
-        Library library = new Library("KUL");
+        Library library = Library.getInstance();
         Book book1 = library.createBook("bib", "god", 0, Category.FANTASY, Condition.GOOD, 1000, "heaven");
         Book book2 = library.createBook("bib1", "god1", 1, Category.FANTASY, Condition.GOOD, 999, "hell");
         library.addBook(book1);
@@ -330,7 +337,7 @@ public class LibraryTest {
     @Test
     public void shouldSaveAndReadCatalogue() {
         //given
-        Library library = new Library("KUL");
+        Library library = Library.getInstance();
         Book book1 = library.createBook("bib", "god", 0, Category.FANTASY, Condition.GOOD, 1000, "heaven");
         Book book2 = library.createBook("bib1", "god1", 1, Category.FANTASY, Condition.GOOD, 999, "hell");
         Book book3 = library.createBook("bib2", "god2", 1, Category.FANTASY, Condition.BAD, 998, "jesus");
@@ -340,11 +347,11 @@ public class LibraryTest {
         library.saveCatalogue();
 
         //when
-        Library newLibrary = new Library("UMCS");
-        newLibrary.readCatalogue();
-        boolean result1 = newLibrary.getCatalogue().get(0).getTitle().equals(book1.getTitle());
-        boolean result2 = newLibrary.getCatalogue().get(1).getTitle().equals(book2.getTitle());
-        boolean result3 = newLibrary.getCatalogue().get(2).getTitle().equals(book3.getTitle());
+        library.getCatalogue().clear();
+        library.readCatalogue();
+        boolean result1 = library.getCatalogue().get(0).getTitle().equals(book1.getTitle());
+        boolean result2 = library.getCatalogue().get(1).getTitle().equals(book2.getTitle());
+        boolean result3 = library.getCatalogue().get(2).getTitle().equals(book3.getTitle());
 
         //then
         Assert.assertTrue(result1);
@@ -355,18 +362,18 @@ public class LibraryTest {
     @Test
     public void shouldSaveAndReadCustomersDB() {
         //given
-        Library library1 = new Library("KUL");
-        library1.createAndAddCustomer("Jan", "pawel", "67092102689", "jan@pawel.dr", "123456789", null);
-        library1.createAndAddCustomer("Ben", "szesnasty", "79051804437", "ben@16.vt", "987654321", null);
-        library1.createAndAddCustomer("Fra", "pierwszy", "98112804528", "fran@ciszek.dr", "321654987", null);
-        library1.saveCustomers();
+        Library library = Library.getInstance();
+        library.createAndAddCustomer("Jan", "pawel", "67092102689", "jan@pawel.dr", "123456789", null);
+        library.createAndAddCustomer("Ben", "szesnasty", "79051804437", "ben@16.vt", "987654321", null);
+        library.createAndAddCustomer("Fra", "pierwszy", "98112804528", "fran@ciszek.dr", "321654987", null);
+        library.saveCustomers();
 
         //when
-        Library library2 = new Library("UMCS");
-        library2.readCustomers();
-        boolean result1 = library2.getCustomers().get(0).getPesel().equals("67092102689");
-        boolean result2 = library2.getCustomers().get(1).getPesel().equals("79051804437");
-        boolean result3 = library2.getCustomers().get(2).getPesel().equals("98112804528");
+        library.getCustomers().clear();
+        library.readCustomers();
+        boolean result1 = library.getCustomers().get(0).getPesel().equals("67092102689");
+        boolean result2 = library.getCustomers().get(1).getPesel().equals("79051804437");
+        boolean result3 = library.getCustomers().get(2).getPesel().equals("98112804528");
 
         //then
         Assert.assertTrue(result1);
@@ -377,32 +384,34 @@ public class LibraryTest {
     @Test
     public void shouldSaveAndReadRentals() {
         //given
-        Library library1 = new Library("KUL");
-        library1.createAndAddCustomer("Jan", "pawel", "67092102689", "jan@pawel.dr", "123456789", null);
-        library1.createAndAddCustomer("Ben", "szesnasty", "79051804437", "ben@16.vt", "987654321", null);
-        library1.createAndAddCustomer("Fra", "pierwszy", "98112804528", "fran@ciszek.dr", "321654987", null);
-        library1.saveCustomers();
-        Book book1 = library1.createBook("bib", "god", 0, Category.FANTASY, Condition.GOOD, 1000, "heaven");
-        Book book2 = library1.createBook("bib1", "god1", 1, Category.FANTASY, Condition.GOOD, 999, "hell");
-        Book book3 = library1.createBook("bib2", "god2", 1, Category.FANTASY, Condition.BAD, 998, "jesus");
-        library1.addBook(book1);
-        library1.addBook(book2);
-        library1.addBook(book3);
-        library1.saveCatalogue();
-        library1.rentBook(book1.getId(), "79051804437");
-        library1.rentBook(book3.getId(), "79051804437");
-        library1.saveCatalogue();
-        library1.saveCustomers();
-        library1.saveRentals();
+        Library library = Library.getInstance();
+        library.createAndAddCustomer("Jan", "pawel", "67092102689", "jan@pawel.dr", "123456789", null);
+        library.createAndAddCustomer("Ben", "szesnasty", "79051804437", "ben@16.vt", "987654321", null);
+        library.createAndAddCustomer("Fra", "pierwszy", "98112804528", "fran@ciszek.dr", "321654987", null);
+        library.saveCustomers();
+        Book book1 = library.createBook("bib", "god", 0, Category.FANTASY, Condition.GOOD, 1000, "heaven");
+        Book book2 = library.createBook("bib1", "god1", 1, Category.FANTASY, Condition.GOOD, 999, "hell");
+        Book book3 = library.createBook("bib2", "god2", 1, Category.FANTASY, Condition.BAD, 998, "jesus");
+        library.addBook(book1);
+        library.addBook(book2);
+        library.addBook(book3);
+        library.saveCatalogue();
+        library.rentBook(book1.getId(), "79051804437");
+        library.rentBook(book3.getId(), "79051804437");
+        library.saveCatalogue();
+        library.saveCustomers();
+        library.saveRentals();
 
         //when
-        Library library2 = new Library("UMCS");
-        library2.readCatalogue();
-        library2.readCustomers();
-        library2.readRentals();
-        boolean result1 = library2.getRentals().size() == 2;
-        boolean result2 = library2.getRentals().entrySet().stream().anyMatch(e -> e.getKey().getId().equals(book1.getId()));
-        boolean result3 = library2.getRentals().entrySet().stream().anyMatch(e -> e.getValue().getPesel().equals("79051804437"));
+        library.getCustomers().clear();
+        library.getCatalogue().clear();
+        library.getRentals().clear();
+        library.readCatalogue();
+        library.readCustomers();
+        library.readRentals();
+        boolean result1 = library.getRentals().size() == 2;
+        boolean result2 = library.getRentals().entrySet().stream().anyMatch(e -> e.getKey().getId().equals(book1.getId()));
+        boolean result3 = library.getRentals().entrySet().stream().anyMatch(e -> e.getValue().getPesel().equals("79051804437"));
 
         //then
         Assert.assertTrue(result1);

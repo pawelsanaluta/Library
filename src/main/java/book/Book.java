@@ -20,6 +20,8 @@ public class Book implements Serializable {
     private int pages;
     private String publisher;
 
+    private static final long serialVersionUID = 1L;
+
     public Book(String title, String author, String id, int released, Category category, Condition condition, int pages, String publisher) {
         this.title = title;
         this.author = author;

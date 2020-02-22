@@ -14,6 +14,8 @@ public class Address implements Serializable {
     private String addressNumber;
     private String zipCode;
 
+    private static final long serialVersionUID = 1L;
+
     public Address(String street, String city, String addressNumber, String zipCode) {
         if (AddressValidator.validateStreet(street)) {
             this.street = street;

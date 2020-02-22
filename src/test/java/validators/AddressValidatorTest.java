@@ -4,7 +4,6 @@ import customer.Address;
 import org.junit.Assert;
 import org.junit.Test;
 
-
 public class AddressValidatorTest {
 
     @Test
@@ -14,6 +13,7 @@ public class AddressValidatorTest {
         //when
         Address address = new Address("", city, "1", "11111");
         boolean result = AddressValidator.validateCity(address.getCity());
+        System.out.println(result);
         //then
         Assert.assertFalse(result);
     }

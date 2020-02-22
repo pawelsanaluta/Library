@@ -15,13 +15,21 @@ import java.util.stream.Collectors;
 @Getter
 public class Library implements LibraryInterface, Serializable {
 
-    private String name;
     private List<Book> catalogue = new ArrayList<>();
     private List<Customer> customers = new ArrayList<>();
     private Map<Book, Customer> rentals = new HashMap<>();
+    public static Library instance;
 
-    public Library(String name) {
-        this.name = name;
+    private static final long serialVersionUID = 1L;
+
+    private Library() {
+    }
+
+    public static Library getInstance() {
+        if (instance == null) {
+            instance = new Library();
+        }
+        return instance;
     }
 
     public List<Book> getCatalogue() {
