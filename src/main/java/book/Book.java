@@ -38,7 +38,7 @@ public class Book implements Serializable {
         char[] ch = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".toCharArray();
         char[] c = new char[5];
         SecureRandom random = new SecureRandom();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 5; i++) {
             c[i] = ch[random.nextInt(ch.length)];
         }
         return new String(c);
