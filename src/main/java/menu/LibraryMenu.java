@@ -15,7 +15,7 @@ import java.util.Scanner;
 import static menu.LibraryMenuUtils.*;
 
 public class LibraryMenu {
-    Library library;
+    Library library = Library.getInstance();
     private final Scanner scanner = new Scanner(System.in);
 
     public void readAndExecute() {
