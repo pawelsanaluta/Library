@@ -56,8 +56,30 @@ public class Library implements LibraryInterface, Serializable {
         }
     }
 
-    public void sendEMail() {
+    public void sendEMail(String receiver, String subject, String message) {
+        SendEmailSMTP.sendEmail(receiver, subject, message);
+    }
 
+    public void sendDeadlineReminder() {
+        String subject = "Przypomnienie o terminie zwrotu książki";
+        Map<Book, Customer> deadline = mapDeadlineComing();
+        for (Map.Entry<Book, Customer> entry : deadline.entrySet()) {
+            String message = "Przypominamy o zbliżającym się terminie zwrotu książki "
+                    + entry.getKey().getTitle() + " dnia " + entry.getKey().getReturnDeadLine().toString();
+            String receiver = entry.getValue().getEmail();
+            sendEMail(receiver, subject, message);
+        }
+    }
+
+    public void sendDeadlineExceededReminder() {
+        String subject = "Przypomnienie o przekroczonym terminie zwrotu";
+        Map<Book, Customer> exceeded = mapDeadlineExceeded();
+        for (Map.Entry<Book, Customer> entry : exceeded.entrySet()) {
+            String message = "Informujemy, że minął termin zwrotu książki " + entry.getKey().getTitle()
+                    + ". Prosimy o natychmiastowy zwrot ww. książki do biblioteki";
+            String receiver = entry.getValue().getEmail();
+            sendEMail(receiver, subject, message);
+        }
     }
 
     public Book createBook(String title, String author, int released, Category category, Condition condition, int pages, String publisher) {

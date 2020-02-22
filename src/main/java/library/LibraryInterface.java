@@ -21,6 +21,10 @@ public interface LibraryInterface {
 
     String showCatalogue();
 
+    void sendDeadlineReminder();
+
+    void sendDeadlineExceededReminder();
+
     List<Book> searchByKeyword(String keyword);
 
     List<Book> searchByCategory(Category category);

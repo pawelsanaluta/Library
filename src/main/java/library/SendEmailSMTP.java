@@ -17,13 +17,10 @@ public class SendEmailSMTP {
     private static final String PASSWORD = "";
 
     private static final String EMAIL_FROM = "From@gmail.com";
-    private static final String EMAIL_TO = "email_1@yahoo.com, email_2@gmail.com";
+
     private static final String EMAIL_TO_CC = "";
 
-    private static final String EMAIL_SUBJECT = "Test Send Email via SMTP";
-    private static final String EMAIL_TEXT = "Hello Java Mail \n ABC123";
-
-    public static void main(String[] args) {
+    public static void sendEmail(String receiver, String subject, String message) {
 
         Properties prop = System.getProperties();
         prop.put("mail.smtp.host", SMTP_SERVER); //optional, defined in SMTPTransport
@@ -40,17 +37,17 @@ public class SendEmailSMTP {
 
             // to
             msg.setRecipients(Message.RecipientType.TO,
-                    InternetAddress.parse(EMAIL_TO, false));
+                    InternetAddress.parse(receiver, false));
 
             // cc
             msg.setRecipients(Message.RecipientType.CC,
                     InternetAddress.parse(EMAIL_TO_CC, false));
 
             // subject
-            msg.setSubject(EMAIL_SUBJECT);
+            msg.setSubject(subject);
 
             // content
-            msg.setText(EMAIL_TEXT);
+            msg.setText(message);
 
             msg.setSentDate(new Date());
 
@@ -71,5 +68,4 @@ public class SendEmailSMTP {
             e.printStackTrace();
         }
     }
-
 }
