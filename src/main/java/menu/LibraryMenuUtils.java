@@ -49,7 +49,7 @@ public class LibraryMenuUtils {
 
     static void showMenu() {
         System.out.println("***** WITAJ W BIBLIOTECE ****");
-        COMMANDS.forEach((key, val) -> System.out.println(String.format("%-20s:,%-20s", key, val)));
+        COMMANDS.forEach((key, val) -> System.out.println(String.format("%s:%-5s", key, val)));
     }
 
     static void showLibraryMenu() {
