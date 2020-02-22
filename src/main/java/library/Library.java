@@ -56,6 +56,10 @@ public class Library implements LibraryInterface, Serializable {
         }
     }
 
+    public void sendEMail() {
+
+    }
+
     public Book createBook(String title, String author, int released, Category category, Condition condition, int pages, String publisher) {
         String id = Book.createID();
         long count = this.catalogue.stream().filter(e -> e.getId().equals(id)).count();
@@ -92,6 +96,14 @@ public class Library implements LibraryInterface, Serializable {
             System.out.println("Usunięto książkę " + book.getTitle());
             this.catalogue.remove(book);
         }
+    }
+
+    public String showCatalogue() {
+        StringBuilder sb = new StringBuilder();
+        for (Book book : this.catalogue) {
+            sb.append(book.toString());
+        }
+        return sb.toString();
     }
 
     public List<Book> searchByKeyword(String keyword) {

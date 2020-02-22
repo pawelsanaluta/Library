@@ -19,6 +19,8 @@ public interface LibraryInterface {
 
     void removeBook(String id);
 
+    String showCatalogue();
+
     List<Book> searchByKeyword(String keyword);
 
     List<Book> searchByCategory(Category category);
