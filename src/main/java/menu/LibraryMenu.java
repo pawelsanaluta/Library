@@ -329,6 +329,7 @@ public class LibraryMenu {
                 break;
             case 6:
                 Library.showCustomers(library.getCustomers());
+                break;
             case 7:
                 readAndExecute();
                 break;

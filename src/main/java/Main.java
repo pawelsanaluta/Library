@@ -13,6 +13,8 @@ public class Main {
         LibraryMenu menu = new LibraryMenu();
         Library library = Library.getInstance();
         library.readData("catalogue.txt", "customers.txt", "rentals.txt");
+//        library.readBooksFromTextFile("books.txt");
+//        library.readCustomersFromTextFile("cust.txt");
         menu.readAndExecute();
     }
 }
