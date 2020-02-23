@@ -20,8 +20,6 @@ public class Book implements Serializable {
     private int pages;
     private String publisher;
 
-    private static final long serialVersionUID = 1L;
-
     public Book(String title, String author, String id, int released, Category category, Condition condition, int pages, String publisher) {
         this.title = title;
         this.author = author;
@@ -51,14 +49,18 @@ public class Book implements Serializable {
         sb.append(String.format("%-25s ", this.author));
         sb.append(String.format("%8s", "Tytuł: "));
         sb.append(String.format("%-25s ", this.title));
+        sb.append(String.format("%5s", "ID: "));
+        sb.append(String.format("%-12s ", this.id));
         sb.append(String.format("%10s", "Wydana: "));
         sb.append(String.format("%-8s ", this.released));
         sb.append(String.format("%8s", "Strony: "));
         sb.append(String.format("%-6s ", this.pages));
         sb.append(String.format("%8s", "Wydawnictwo: "));
         sb.append(String.format("%-6s ", this.pages));
-        sb.append(String.format("%16s ", "Termin zwrotu: "));
-        sb.append(String.format("%-15s ", this.returnDeadLine.toString()));
+        if(returnDeadLine != null) {
+            sb.append(String.format("%16s ", "Termin zwrotu: "));
+            sb.append(String.format("%-15s ", this.returnDeadLine.toString()));
+        }
         sb.append("\n");
         return sb.toString();
     }

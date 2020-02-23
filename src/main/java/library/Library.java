@@ -20,8 +20,6 @@ public class Library implements LibraryInterface, Serializable {
     private Map<Book, Customer> rentals = new HashMap<>();
     public static Library instance;
 
-    private static final long serialVersionUID = 1L;
-
     private Library() {
     }
 
