@@ -10,9 +10,8 @@ import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        Library library = Library.getInstance();
         LibraryMenu menu = new LibraryMenu();
-        library.readData();
+        //library.readData();
         menu.readAndExecute();
     }
 }

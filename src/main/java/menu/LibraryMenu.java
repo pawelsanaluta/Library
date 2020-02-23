@@ -229,7 +229,7 @@ public class LibraryMenu {
                 }
                 break;
             case 3:
-                library.showCatalogue();
+                System.out.println(library.showCatalogue());
                 break;
             case 4:
                 showLibraryMenu();
