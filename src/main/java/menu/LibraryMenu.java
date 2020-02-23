@@ -13,10 +13,7 @@ import validators.EnumValidator;
 import validators.PeselValidator;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 import static menu.LibraryMenuUtils.*;
 
@@ -64,50 +61,62 @@ public class LibraryMenu {
             switch (input) {
                 case 1:
                     System.out.println(library.showCatalogue());
-                    System.out.println("Wciśnij [space] aby wrócić do menu Biblioteka");
+                    System.out.println("Wciśnij [q] aby wrócić do menu Biblioteka");
                     finish = scanner.nextLine();
-                    if (finish.equals(" ")) {
+                    if (finish.equals("q")) {
                         library();
                     }
                     break;
                 case 2:
                     Library.showCustomers(library.getCustomers());
-                    System.out.println("Wciśnij [enter] aby wrócić do menu Biblioteka");
+                    System.out.println("Wciśnij [q] aby wrócić do menu Biblioteka");
                     finish = scanner.nextLine();
-                    if (finish.equals("")) {
-                        showLibraryMenu();
+                    if (finish.equals("q")) {
+                        library();
                     }
                     break;
                 case 3:
-                    library.listAvailableBooks();
-                    System.out.println("Wciśnij [enter] aby wrócić do menu Biblioteka");
+                    List<Book> list = library.listAvailableBooks();
+                    for (Book b : list) {
+                        System.out.println(b.toString());
+                    }
+                    System.out.println("Wciśnij [q] aby wrócić do menu Biblioteka");
                     finish = scanner.nextLine();
-                    if (finish.equals("")) {
-                        showLibraryMenu();
+                    if (finish.equals("q")) {
+                        library();
                     }
                     break;
                 case 4:
-                    library.showAllRentals();
-                    System.out.println("Wciśnij [enter] aby wrócić do menu Biblioteka");
+                    System.out.println(library.showAllRentals());
+                    System.out.println("Wciśnij [q] aby wrócić do menu Biblioteka");
                     finish = scanner.nextLine();
-                    if (finish.equals("")) {
-                        showLibraryMenu();
+                    if (finish.equals("q")) {
+                        library();
                     }
                     break;
                 case 5:
-                    library.mapDeadlineComing();
-                    System.out.println("Wciśnij [enter] aby wrócić do menu Biblioteka");
+                    Map<Book, Customer> map = library.mapDeadlineComing();
+                    for (Map.Entry<Book, Customer> entry : map.entrySet()) {
+                        System.out.print(entry.getKey().getTitle() + " " + entry.getKey().getAuthor());
+                        System.out.println(entry.getValue().getFirstName() + " " + entry.getValue().getLastName());
+                    }
+                    System.out.println("Wciśnij [q] aby wrócić do menu Biblioteka");
                     finish = scanner.nextLine();
-                    if (finish.equals("")) {
-                        showLibraryMenu();
+                    if (finish.equals("q")) {
+                        library();
                     }
                     break;
                 case 6:
-                    library.mapDeadlineExceeded();
-                    System.out.println("Wciśnij [enter] aby wrócić do menu Biblioteka");
+                    Map<Book, Customer> map1 = library.mapDeadlineExceeded();
+                    for (Map.Entry<Book, Customer> entry : map1.entrySet()) {
+                        System.out.print(entry.getKey().getTitle() + " " + entry.getKey().getAuthor());
+                        System.out.println(entry.getValue().getFirstName() + " " + entry.getValue().getLastName());
+                    }
+
+                    System.out.println("Wciśnij [q] aby wrócić do menu Biblioteka");
                     finish = scanner.nextLine();
-                    if (finish.equals("")) {
-                        showLibraryMenu();
+                    if (finish.equals("q")) {
+                        library();
                     }
                     break;
                 case 7:
