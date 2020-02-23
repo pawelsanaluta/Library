@@ -46,7 +46,7 @@ public class LibraryMenu {
                     customer();
                     break;
                 case 4:
-                    library.saveData();
+                    library.saveData("catalogue.txt", "customers.txt", "rentals.txt");
                     System.exit(0);
                     end = false;
                     break;

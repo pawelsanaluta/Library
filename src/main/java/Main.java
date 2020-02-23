@@ -12,7 +12,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         LibraryMenu menu = new LibraryMenu();
         Library library = Library.getInstance();
-        library.readData();
+        library.readData("catalogue.txt", "customers.txt", "rentals.txt");
         menu.readAndExecute();
     }
 }
