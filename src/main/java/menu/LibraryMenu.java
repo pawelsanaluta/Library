@@ -64,12 +64,12 @@ public class LibraryMenu {
             switch (input) {
                 case 1:
                     System.out.println(library.showCatalogue());
-                    System.out.println("Wciśnij [enter] aby wrócić do menu Biblioteka");
+                    System.out.println("Wciśnij [space] aby wrócić do menu Biblioteka");
                     finish = scanner.nextLine();
-                    if (finish.equals("")) {
-                        showLibraryMenu();
-                        break;
+                    if (finish.equals(" ")) {
+                        library();
                     }
+                    break;
                 case 2:
                     Library.showCustomers(library.getCustomers());
                     System.out.println("Wciśnij [enter] aby wrócić do menu Biblioteka");
@@ -127,9 +127,7 @@ public class LibraryMenu {
                     library.showCustomerRentals(pesel);
                     break;
                 case 0:
-                    System.out.println("Chuj wi");
                     readAndExecute();
-//                    input = scanner.nextInt();
                     end = false;
                     break;
             }
@@ -235,7 +233,11 @@ public class LibraryMenu {
                 }
                 break;
             case 3:
-                System.out.println(library.showCatalogue());
+                if (library.getCatalogue().size() == 0) {
+                    System.out.println("Katalog książek jest pusty");
+                } else {
+                    System.out.println(library.showCatalogue());
+                }
                 break;
             case 4:
                 readAndExecute();
@@ -329,7 +331,6 @@ public class LibraryMenu {
                 break;
             case 6:
                 Library.showCustomers(library.getCustomers());
-                break;
             case 7:
                 readAndExecute();
                 break;
@@ -339,54 +340,54 @@ public class LibraryMenu {
 
     private void editCustomerAddress() throws IOException {
         boolean end = true;
-        while(end){
-        showCustomerMenuEditAddress();
-        String pesel;
-        Customer customer;
-        int input = scanner.nextInt();
-        switch (input) {
-            case 1:
-                System.out.println("Podaj PESEL czytelnika do zmiany danych: ");
-                pesel = scanner.next();
-                customer = library.searchCustomerByPesel(pesel);
-                System.out.println("Podaj nową nazwę ulicy: ");
-                String street = scanner.next();
-                customer.getAddress().setStreet(street);
-                break;
-            case 2:
-                System.out.println("Podaj PESEL czytelnika do zmiany danych: ");
-                pesel = scanner.next();
-                customer = library.searchCustomerByPesel(pesel);
-                System.out.println("Podaj nową nazwę miejscowości: ");
-                String city = scanner.next();
-                customer.getAddress().setCity(city);
-                break;
-            case 3:
-                System.out.println("Podaj PESEL czytelnika do zmiany danych: ");
-                pesel = scanner.next();
-                customer = library.searchCustomerByPesel(pesel);
-                System.out.println("Podaj nowy numer domu: ");
-                String addressNumebr = scanner.next();
-                customer.getAddress().setAddressNumber(addressNumebr);
-                break;
-            case 4:
-                System.out.println("Podaj PESEL czytelnika do zmiany danych: ");
-                pesel = scanner.next();
-                customer = library.searchCustomerByPesel(pesel);
-                System.out.println("Podaj nowy kod pocztowy: ");
-                String zipCode = scanner.next();
-                customer.getAddress().setStreet(zipCode);
-                break;
-            case 5:
-               readAndExecute();
-                end = false;
-        }
+        while (end) {
+            showCustomerMenuEditAddress();
+            String pesel;
+            Customer customer;
+            int input = scanner.nextInt();
+            switch (input) {
+                case 1:
+                    System.out.println("Podaj PESEL czytelnika do zmiany danych: ");
+                    pesel = scanner.next();
+                    customer = library.searchCustomerByPesel(pesel);
+                    System.out.println("Podaj nową nazwę ulicy: ");
+                    String street = scanner.next();
+                    customer.getAddress().setStreet(street);
+                    break;
+                case 2:
+                    System.out.println("Podaj PESEL czytelnika do zmiany danych: ");
+                    pesel = scanner.next();
+                    customer = library.searchCustomerByPesel(pesel);
+                    System.out.println("Podaj nową nazwę miejscowości: ");
+                    String city = scanner.next();
+                    customer.getAddress().setCity(city);
+                    break;
+                case 3:
+                    System.out.println("Podaj PESEL czytelnika do zmiany danych: ");
+                    pesel = scanner.next();
+                    customer = library.searchCustomerByPesel(pesel);
+                    System.out.println("Podaj nowy numer domu: ");
+                    String addressNumebr = scanner.next();
+                    customer.getAddress().setAddressNumber(addressNumebr);
+                    break;
+                case 4:
+                    System.out.println("Podaj PESEL czytelnika do zmiany danych: ");
+                    pesel = scanner.next();
+                    customer = library.searchCustomerByPesel(pesel);
+                    System.out.println("Podaj nowy kod pocztowy: ");
+                    String zipCode = scanner.next();
+                    customer.getAddress().setStreet(zipCode);
+                    break;
+                case 5:
+                    readAndExecute();
+                    end = false;
+            }
         }
     }
 
     private void editCustomerData() throws IOException {
         boolean end = true;
-        while(end) {
+        while (end) {
             showCustomerMenuEditData();
             int input = scanner.nextInt();
 
