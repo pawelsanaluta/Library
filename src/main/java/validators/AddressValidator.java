@@ -24,8 +24,8 @@ public class AddressValidator {
             System.out.println("Miasto nie może zawierać samych spacji");
             return false;
         }
-        List<Character> letters = Arrays.asList('q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z',
-                'x', 'c', 'v', 'b', 'n', 'm', ' ', 'ą', 'ć', 'ś', 'ę', 'ł', 'ń', 'ż', 'ź', 'ó');
+        List<Character> letters
+                = Arrays.asList('q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z', 'x', 'c', 'v', 'b', 'n', 'm', ' ', 'ą', 'ć', 'ś', 'ę', 'ł', 'ń', 'ż', 'ź', 'ó');
         address = address.toLowerCase();
         char[] addressChars = address.toCharArray();
         for (int i = 0; i < addressChars.length; i++) {
@@ -50,7 +50,8 @@ public class AddressValidator {
             System.out.println("Ulica nie może zawierać samych spacji");
             return false;
         }
-        List<Character> letters = Arrays.asList('q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z',
+        List<Character> letters
+                = Arrays.asList('q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z',
                 'x', 'c', 'v', 'b', 'n', 'm', ' ', 'ą', 'ć', 'ś', 'ę', 'ł', 'ń', 'ż', 'ź', 'ó', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '\'');
         street = street.toLowerCase();
         char[] addressChars = street.toCharArray();

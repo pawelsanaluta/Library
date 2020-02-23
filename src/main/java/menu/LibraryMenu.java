@@ -57,7 +57,7 @@ public class LibraryMenu {
         while (end) {
             switch (input) {
                 case 1:
-                    library.showCatalogue();
+                    System.out.println(library.showCatalogue());
                     System.out.println("Wciśnij [enter] aby wrócić do menu");
                     finish = scanner.next();
                     if (finish.equals("")){
