@@ -8,9 +8,9 @@ import customer.Customer;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.io.IOException;
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -503,6 +503,28 @@ public class LibraryTest {
         Assert.assertEquals(1, deadlineExc.size());
         Assert.assertTrue(result1);
         Assert.assertFalse(result2);
+
+    }
+
+    @Test
+    public void shouldCreateBookObjectsFromTextFile() throws IOException {
+        //given
+        String filename = "books.txt";
+
+        //when
+        Library library = Library.getInstance();
+        library.readBooksFromTextFile(filename);
+        int size = library.getCatalogue().size();
+
+        //then
+        Assert.assertEquals(5, size);
+    }
+
+    @Test
+    public void shouldReadCustomerDataFromTextFile() throws IOException {
+        //given
+        String fileName;
+
 
     }
 }

@@ -422,4 +422,24 @@ public class Library implements LibraryInterface, Serializable {
         }
         this.rentals = rentals;
     }
+
+    public void readBooksFromTextFile(String fileName) throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader(fileName));
+        String line = br.readLine();
+        while(line != null) {
+            String[] data = line.split("#");
+            this.catalogue.add(createBook(data[0], data[1], Integer.parseInt(data[2]), Category.valueOf(data[3].toUpperCase()), Condition.valueOf(data[4].toUpperCase()), Integer.parseInt(data[5]), data[6]));
+            line = br.readLine();
+        }
+    }
+
+    public void readCustomersFromTextFile(String fileName) throws IOException {
+        BufferedReader br = new BufferedReader(new FileReader(fileName));
+        String line = br.readLine();
+        while(line != null) {
+            String[] data = line.split("#");
+            createAndAddCustomer(data[0], data[1], data[2], data[3], data[4], new Address(data[5], data[6], data[7], data[8]));
+            line = br.readLine();
+        }
+    }
 }
