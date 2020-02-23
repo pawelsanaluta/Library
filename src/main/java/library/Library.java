@@ -324,16 +324,16 @@ public class Library implements LibraryInterface, Serializable {
     }
 
     @Override
-    public void saveData() {
-        this.saveCatalogue();
-        this.saveCustomers();
-        this.saveRentals();
+    public void saveData(String catalogueFileName, String customersFileName, String rentalsFileName) {
+        this.saveCatalogue(catalogueFileName);
+        this.saveCustomers(customersFileName);
+        this.saveRentals(rentalsFileName);
     }
 
     @Override
-    public void saveCustomers() {
+    public void saveCustomers(String fileName) {
         try {
-            FileOutputStream fos = new FileOutputStream("customers.txt");
+            FileOutputStream fos = new FileOutputStream(fileName);
             ObjectOutputStream oot = new ObjectOutputStream(fos);
             oot.writeObject(this.customers);
             oot.close();
@@ -344,9 +344,9 @@ public class Library implements LibraryInterface, Serializable {
     }
 
     @Override
-    public void saveCatalogue() {
+    public void saveCatalogue(String fileName) {
         try {
-            FileOutputStream fos = new FileOutputStream("catalogue.txt");
+            FileOutputStream fos = new FileOutputStream(fileName);
             ObjectOutputStream oot = new ObjectOutputStream(fos);
             oot.writeObject(this.catalogue);
             oot.close();
@@ -357,9 +357,9 @@ public class Library implements LibraryInterface, Serializable {
     }
 
     @Override
-    public void saveRentals() {
+    public void saveRentals(String fileName) {
         try {
-            FileOutputStream fos = new FileOutputStream("rentals.txt");
+            FileOutputStream fos = new FileOutputStream(fileName);
             ObjectOutputStream oot = new ObjectOutputStream(fos);
             oot.writeObject(this.rentals);
             oot.close();
@@ -370,17 +370,17 @@ public class Library implements LibraryInterface, Serializable {
     }
 
     @Override
-    public void readData() {
-        this.readCatalogue();
-        this.readCustomers();
-        this.readRentals();
+    public void readData(String catalogueFileName, String customersFileName, String rentalsFileName) {
+        this.readCatalogue(catalogueFileName);
+        this.readCustomers(customersFileName);
+        this.readRentals(rentalsFileName);
     }
 
     @Override
-    public void readCustomers() {
+    public void readCustomers(String fileName) {
         ArrayList<Customer> customers = new ArrayList<>();
         try {
-            FileInputStream fis = new FileInputStream("customers.txt");
+            FileInputStream fis = new FileInputStream(fileName);
             ObjectInputStream ois = new ObjectInputStream(fis);
             customers = (ArrayList) ois.readObject();
             ois.close();
@@ -392,10 +392,10 @@ public class Library implements LibraryInterface, Serializable {
     }
 
     @Override
-    public void readCatalogue() {
+    public void readCatalogue(String fileName) {
         ArrayList<Book> catalogue = new ArrayList<>();
         try {
-            FileInputStream fis = new FileInputStream("catalogue.txt");
+            FileInputStream fis = new FileInputStream(fileName);
             ObjectInputStream ois = new ObjectInputStream(fis);
             catalogue = (ArrayList) ois.readObject();
             ois.close();
@@ -407,10 +407,10 @@ public class Library implements LibraryInterface, Serializable {
     }
 
     @Override
-    public void readRentals() {
+    public void readRentals(String fileName) {
         HashMap<Book, Customer> rentals = new HashMap<>();
         try {
-            FileInputStream fis = new FileInputStream("rentals.txt");
+            FileInputStream fis = new FileInputStream(fileName);
             ObjectInputStream ois = new ObjectInputStream(fis);
             rentals = (HashMap) ois.readObject();
             ois.close();

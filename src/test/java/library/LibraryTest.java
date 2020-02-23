@@ -5,10 +5,14 @@ import book.Category;
 import book.Condition;
 import customer.Address;
 import customer.Customer;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
@@ -18,11 +22,25 @@ import static org.junit.Assert.*;
 
 public class LibraryTest {
 
+    private String catalogueFileName = "test_catalogue.txt";
+    private String customersFileName = "test_customers.txt";
+    private String rentalsFileName = "test_rentals.txt";
+
     @Before
     public void before() {
         Library.getInstance().getRentals().clear();
         Library.getInstance().getCatalogue().clear();
         Library.getInstance().getCustomers().clear();
+    }
+
+    @After
+    public void after() throws IOException {
+        BufferedWriter bw1 = new BufferedWriter(new FileWriter("test_catalogue.txt"));
+        BufferedWriter bw2 = new BufferedWriter(new FileWriter("test_customers.txt"));
+        BufferedWriter bw3 = new BufferedWriter(new FileWriter("test_rentals.txt"));
+        bw1.write("");
+        bw2.write("");
+        bw3.write("");
     }
 
     @Test
@@ -347,11 +365,11 @@ public class LibraryTest {
         library.addBook(book1);
         library.addBook(book2);
         library.addBook(book3);
-        library.saveCatalogue();
+        library.saveCatalogue(catalogueFileName);
 
         //when
         library.getCatalogue().clear();
-        library.readCatalogue();
+        library.readCatalogue(catalogueFileName);
         boolean result1 = library.getCatalogue().get(0).getTitle().equals(book1.getTitle());
         boolean result2 = library.getCatalogue().get(1).getTitle().equals(book2.getTitle());
         boolean result3 = library.getCatalogue().get(2).getTitle().equals(book3.getTitle());
@@ -369,11 +387,11 @@ public class LibraryTest {
         library.createAndAddCustomer("Jan", "pawel", "67092102689", "jan@pawel.dr", "123456789", null);
         library.createAndAddCustomer("Ben", "szesnasty", "79051804437", "ben@16.vt", "987654321", null);
         library.createAndAddCustomer("Fra", "pierwszy", "98112804528", "fran@ciszek.dr", "321654987", null);
-        library.saveCustomers();
+        library.saveCustomers(customersFileName);
 
         //when
         library.getCustomers().clear();
-        library.readCustomers();
+        library.readCustomers(customersFileName);
         boolean result1 = library.getCustomers().get(0).getPesel().equals("67092102689");
         boolean result2 = library.getCustomers().get(1).getPesel().equals("79051804437");
         boolean result3 = library.getCustomers().get(2).getPesel().equals("98112804528");
@@ -391,27 +409,27 @@ public class LibraryTest {
         library.createAndAddCustomer("Jan", "pawel", "67092102689", "jan@pawel.dr", "123456789", null);
         library.createAndAddCustomer("Ben", "szesnasty", "79051804437", "ben@16.vt", "987654321", null);
         library.createAndAddCustomer("Fra", "pierwszy", "98112804528", "fran@ciszek.dr", "321654987", null);
-        library.saveCustomers();
+        library.saveCustomers(customersFileName);
         Book book1 = library.createBook("bib", "god", 0, Category.FANTASY, Condition.GOOD, 1000, "heaven");
         Book book2 = library.createBook("bib1", "god1", 1, Category.FANTASY, Condition.GOOD, 999, "hell");
         Book book3 = library.createBook("bib2", "god2", 1, Category.FANTASY, Condition.BAD, 998, "jesus");
         library.addBook(book1);
         library.addBook(book2);
         library.addBook(book3);
-        library.saveCatalogue();
+        library.saveCatalogue(catalogueFileName);
         library.rentBook(book1.getId(), "79051804437");
         library.rentBook(book3.getId(), "79051804437");
-        library.saveCatalogue();
-        library.saveCustomers();
-        library.saveRentals();
+        library.saveCatalogue(catalogueFileName);
+        library.saveCustomers(customersFileName);
+        library.saveRentals(rentalsFileName);
 
         //when
         library.getCustomers().clear();
         library.getCatalogue().clear();
         library.getRentals().clear();
-        library.readCatalogue();
-        library.readCustomers();
-        library.readRentals();
+        library.readCatalogue(catalogueFileName);
+        library.readCustomers(customersFileName);
+        library.readRentals(rentalsFileName);
         boolean result1 = library.getRentals().size() == 2;
         boolean result2 = library.getRentals().entrySet().stream().anyMatch(e -> e.getKey().getId().equals(book1.getId()));
         boolean result3 = library.getRentals().entrySet().stream().anyMatch(e -> e.getValue().getPesel().equals("79051804437"));

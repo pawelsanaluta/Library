@@ -61,20 +61,20 @@ public interface LibraryInterface {
 
     Map<Book, Customer> mapDeadlineExceeded();
 
-    void saveData();
+    void saveData(String catalogueFileName, String customersFileName, String rentalsFileName);
 
-    void saveCustomers();
+    void saveCustomers(String fileName);
 
-    void saveCatalogue();
+    void saveCatalogue(String fileName);
 
-    void saveRentals();
+    void saveRentals(String fileName);
 
-    void readData();
+    void readData(String catalogueFileName, String customersFileName, String rentalsFileName);
 
-    void readCustomers();
+    void readCustomers(String fileName);
 
-    void readCatalogue();
+    void readCatalogue(String fileName);
 
-    void readRentals();
+    void readRentals(String fileName);
 
 }
