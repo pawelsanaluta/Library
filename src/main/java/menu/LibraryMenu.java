@@ -56,11 +56,11 @@ public class LibraryMenu {
 
     void library() throws IOException {
         showLibraryMenu();
-        String finish;
-        String pesel;
         int input = scanner.nextInt();
         boolean end = true;
         while (end) {
+            String finish;
+            String pesel;
             switch (input) {
                 case 1:
                     System.out.println(library.showCatalogue());
@@ -127,17 +127,20 @@ public class LibraryMenu {
                     library.showCustomerRentals(pesel);
                     break;
                 case 0:
+                    System.out.println("Chuj wi");
                     readAndExecute();
+//                    input = scanner.nextInt();
                     end = false;
                     break;
             }
         }
     }
 
-    public void searchingBooks() {
+    public void searchingBooks() throws IOException {
+
         showLibraryMenuSearchBook();
-        int searchingMethod = scanner.nextInt();
-        switch (searchingMethod) {
+        int input = scanner.nextInt();
+        switch (input) {
             case 1:
                 System.out.println("Podaj ID książki: ");
                 String bookID = scanner.next();
@@ -161,12 +164,15 @@ public class LibraryMenu {
                 }
                 break;
             case 4:
+                library();
                 showLibraryMenu();
+                input = scanner.nextInt();
+
                 break;
         }
     }
 
-    void catalogue() {
+    void catalogue() throws IOException {
         showCatalogueMenu();
         int input = scanner.nextInt();
         switch (input) {
@@ -215,7 +221,7 @@ public class LibraryMenu {
                 System.out.println("Podaj ID książki do usunięcia: ");
                 String id = scanner.next();
                 Book book = library.getBookByID(id);
-                if (book==null){
+                if (book == null) {
                     break;
                 }
                 System.out.println("Czy jesteś pewien, że chcesz usunąć książkę: " + library.getBookByID(id) + "y/n");
@@ -232,8 +238,7 @@ public class LibraryMenu {
                 System.out.println(library.showCatalogue());
                 break;
             case 4:
-                showLibraryMenu();
-                input = scanner.nextInt();
+                readAndExecute();
                 break;
         }
 
@@ -292,7 +297,9 @@ public class LibraryMenu {
                 System.out.println("Podaj PESEL czytelnika do usunięcia: ");
                 pesel = scanner.next();
                 System.out.println("Czy na pewno chcesz usunąć czytelnika: "
-                        + library.searchCustomerByPesel(pesel) + " ? y/n");
+                        + library.searchCustomerByPesel(pesel).getFirstName()
+                        + " " + library.searchCustomerByPesel(pesel).getLastName()
+                        + " ? y/n");
                 String yes = scanner.next();
                 if (yes.equals("y")) {
                     library.removeCustomer(pesel);
@@ -319,6 +326,7 @@ public class LibraryMenu {
                     lastName = afterDivision[1];
                     library.searchCustomerByName(firstName, lastName);
                 }
+                break;
             case 6:
                 Library.showCustomers(library.getCustomers());
             case 7:
@@ -328,7 +336,9 @@ public class LibraryMenu {
 
     }
 
-    private void editCustomerAddress() {
+    private void editCustomerAddress() throws IOException {
+        boolean end = true;
+        while(end){
         showCustomerMenuEditAddress();
         String pesel;
         Customer customer;
@@ -367,43 +377,56 @@ public class LibraryMenu {
                 customer.getAddress().setStreet(zipCode);
                 break;
             case 5:
-                showCustomerMenu();
+               readAndExecute();
+                end = false;
+        }
         }
     }
 
-    private void editCustomerData() {
-        showCustomerMenuEditData();
-        String pesel;
-        int input = scanner.nextInt();
-        switch (input) {
-            case 1:
-                System.out.println("Podaj PESEL czytelnika do zmiany danych: ");
-                pesel = scanner.next();
-                System.out.println("Podaj nowe imie: ");
-                String firstName = scanner.next();
-                library.editCustomerFirstName(pesel, firstName);
-                break;
-            case 2:
-                System.out.println("Podaj PESEL czytelnika do zmiany danych: ");
-                pesel = scanner.next();
-                System.out.println("Podaj nowe nazwisko: ");
-                String lastName = scanner.next();
-                library.editCustomerLastName(pesel, lastName);
-                break;
-            case 3:
-                System.out.println("Podaj PESEL czytelnika do zmiany danych: ");
-                pesel = scanner.next();
-                System.out.println("Podaj email: ");
-                String email = scanner.next();
-                library.editCustomerEmail(pesel, email);
-                break;
-            case 4:
-                System.out.println("Podaj PESEL czytelnika do zmiany danych: ");
-                pesel = scanner.next();
-                System.out.println("Podaj  nowy numer telefonu: ");
-                String phoneNumber = scanner.next();
-                library.editCustomerPhoneNumber(pesel, phoneNumber);
-                break;
+    private void editCustomerData() throws IOException {
+        boolean end = true;
+        while(end) {
+            showCustomerMenuEditData();
+            int input = scanner.nextInt();
+
+            String pesel;
+            switch (input) {
+                case 1:
+                    System.out.println("Podaj PESEL czytelnika do zmiany danych: ");
+                    pesel = scanner.next();
+                    System.out.println("Podaj nowe imie: ");
+                    String firstName = scanner.next();
+                    library.editCustomerFirstName(pesel, firstName);
+                    break;
+                case 2:
+                    System.out.println("Podaj PESEL czytelnika do zmiany danych: ");
+                    pesel = scanner.next();
+                    System.out.println("Podaj nowe nazwisko: ");
+                    String lastName = scanner.next();
+                    library.editCustomerLastName(pesel, lastName);
+                    break;
+                case 3:
+                    System.out.println("Podaj PESEL czytelnika do zmiany danych: ");
+                    pesel = scanner.next();
+                    System.out.println("Podaj email: ");
+                    String email = scanner.next();
+                    library.editCustomerEmail(pesel, email);
+                    break;
+                case 4:
+                    System.out.println("Podaj PESEL czytelnika do zmiany danych: ");
+                    pesel = scanner.next();
+                    System.out.println("Podaj  nowy numer telefonu: ");
+                    String phoneNumber = scanner.next();
+                    library.editCustomerPhoneNumber(pesel, phoneNumber);
+
+                    break;
+                case 5:
+                    editCustomerAddress();
+                case 6:
+                    showCustomerMenu();
+                    scanner.nextInt();
+                    end = false;
+            }
         }
 
     }
