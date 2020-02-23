@@ -130,7 +130,7 @@ public class AddressValidator {
             char[] zipCodeToTab = zipCode.toCharArray();
             for (int i = 0; i < zipCodeToTab.length; i++) {
                 if (chars.contains(zipCodeToTab[i])) {
-                    System.out.println("Kod pocztowy prawidłowy");
+//                    System.out.println("Kod pocztowy prawidłowy");
                     return true;
                 }
             }

@@ -25,9 +25,9 @@ public class LibraryMenu {
     private final Scanner scanner = new Scanner(System.in);
 
     public void readAndExecute() throws IOException {
-        library.readData();
-        library.readBooksFromTextFile("books.txt");
-        library.readCustomersFromTextFile("cust.txt");
+//        library.readData();
+//        library.readBooksFromTextFile("books.txt");
+//        library.readCustomersFromTextFile("cust.txt");
         showMenu();
         int input = scanner.nextInt();
         if (input > 4) {
@@ -63,7 +63,7 @@ public class LibraryMenu {
         while (end) {
             switch (input) {
                 case 1:
-//                    System.out.println(library.showCatalogue());
+                    System.out.println(library.showCatalogue());
                     System.out.println("Wciśnij [enter] aby wrócić do menu Biblioteka");
                     finish = scanner.nextLine();
                     if (finish.equals("")) {
@@ -214,6 +214,10 @@ public class LibraryMenu {
             case 2:
                 System.out.println("Podaj ID książki do usunięcia: ");
                 String id = scanner.next();
+                Book book = library.getBookByID(id);
+                if (book==null){
+                    break;
+                }
                 System.out.println("Czy jesteś pewien, że chcesz usunąć książkę: " + library.getBookByID(id) + "y/n");
                 String y_n = scanner.next();
                 if (y_n.equals("y")) {

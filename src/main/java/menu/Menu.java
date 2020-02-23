@@ -2,6 +2,7 @@ package menu;
 
 import library.Library;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 import static menu.LibraryMenuUtils.showMenu;
@@ -10,7 +11,7 @@ public class Menu {
     Library library = Library.getInstance();
     LibraryMenu libraryMenu = new LibraryMenu();
     private final Scanner scanner = new Scanner(System.in);
-    public void readAndExecute() {
+    public void readAndExecute() throws IOException {
         showMenu();
         int input = scanner.nextInt();
         if (input > 4) {
