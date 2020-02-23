@@ -10,6 +10,9 @@ public class LibraryMenuUtils {
     static Map<Integer, String> CATALOGUE_MENU = new LinkedHashMap<>();
     static Map<Integer, String> CUSTOMER_MENU = new LinkedHashMap<>();
     static Map<Integer, String> CUSTOMER_MENU_SEARCH_CUSTOMER = new LinkedHashMap<>();
+    static Map<Integer, String> CUSTOMER_MENU_EDIT_DATA = new LinkedHashMap<>();
+    static Map<Integer, String> CUSTOMER_MENU_EDIT_ADDRESS = new LinkedHashMap<>();
+
 
     static {
         COMMANDS.put(1, "Biblioteka (katalog książek, czytelników/dostępne/wypożyczone ksiażki terminy zwrotów/wyszukiwarka)");
@@ -41,6 +44,17 @@ public class LibraryMenuUtils {
         CUSTOMER_MENU.put(5, "Znajdź czytelnika");
         CUSTOMER_MENU.put(6, "Wyświetl wszystkich cztelników");
         CUSTOMER_MENU.put(7, "Powrót do głównego menu");
+        CUSTOMER_MENU_EDIT_DATA.put(1, "Edytuj imię");
+        CUSTOMER_MENU_EDIT_DATA.put(2, "Edytuj nazwisko");
+        CUSTOMER_MENU_EDIT_DATA.put(3, "Edytuj email");
+        CUSTOMER_MENU_EDIT_DATA.put(4, "Edytuj numer telefonu");
+        CUSTOMER_MENU_EDIT_DATA.put(5, "Edytuj adres");
+        CUSTOMER_MENU_EDIT_DATA.put(6, "Powrót do menu");
+        CUSTOMER_MENU_EDIT_ADDRESS.put(1, "Edytuj nazwę ulicy");
+        CUSTOMER_MENU_EDIT_ADDRESS.put(2, "Edytuj nazwę miejscowości");
+        CUSTOMER_MENU_EDIT_ADDRESS.put(3, "Edytuj numer domu");
+        CUSTOMER_MENU_EDIT_ADDRESS.put(4, "Edytuj kod pocztowy");
+        CUSTOMER_MENU_EDIT_ADDRESS.put(5, "Powrót do menu");
         CUSTOMER_MENU_SEARCH_CUSTOMER.put(1, "Znajdź czytelnika po numerze PESEL");
         CUSTOMER_MENU_SEARCH_CUSTOMER.put(2, "Znajdź czytelnika po imieniu i nazwisku");
 
@@ -66,7 +80,12 @@ public class LibraryMenuUtils {
     static void showCustomerMenu() {
         CUSTOMER_MENU.forEach((key, val) -> System.out.println(String.format("%s:%-10s", key, val)));
     }
-
+    static void showCustomerMenuEditData() {
+        CUSTOMER_MENU_EDIT_DATA.forEach((key, val) -> System.out.println(String.format("%s:%-10s", key, val)));
+    }
+    static void showCustomerMenuEditAddress() {
+        CUSTOMER_MENU_EDIT_ADDRESS.forEach((key, val) -> System.out.println(String.format("%s:%-10s", key, val)));
+    }
     static void showCustomerMenuSearchCustomer() {
         CUSTOMER_MENU_SEARCH_CUSTOMER.forEach((key, val) -> System.out.println(String.format("%s:%-10s", key, val)));
     }
