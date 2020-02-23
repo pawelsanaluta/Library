@@ -233,6 +233,7 @@ public class LibraryMenu {
                 break;
             case 4:
                 showLibraryMenu();
+                input = scanner.nextInt();
                 break;
         }
 
