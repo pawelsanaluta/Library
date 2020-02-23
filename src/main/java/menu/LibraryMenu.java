@@ -12,6 +12,7 @@ import validators.EmptyValidator;
 import validators.EnumValidator;
 import validators.PeselValidator;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -23,8 +24,10 @@ public class LibraryMenu {
     Library library = Library.getInstance();
     private final Scanner scanner = new Scanner(System.in);
 
-    public void readAndExecute() {
+    public void readAndExecute() throws IOException {
         library.readData();
+        library.readBooksFromTextFile("books.txt");
+        library.readCustomersFromTextFile("cust.txt");
         showMenu();
         int input = scanner.nextInt();
         if (input > 4) {
@@ -51,7 +54,7 @@ public class LibraryMenu {
         }
     }
 
-    void library() {
+    void library() throws IOException {
         showLibraryMenu();
         String finish;
         String pesel;
@@ -231,7 +234,7 @@ public class LibraryMenu {
 
     }
 
-    private void customer() {
+    private void customer() throws IOException {
         showCustomerMenu();
         Customer customer;
         int profil = scanner.nextInt();
