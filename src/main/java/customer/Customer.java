@@ -56,6 +56,25 @@ public class Customer implements Serializable {
         this.approvals.put(Approvals.MARKETING, true);
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format("%8s", "Imię: "));
+        sb.append(String.format("%-25s ", this.firstName));
+        sb.append(String.format("%8s", "Nazwisko: "));
+        sb.append(String.format("%-25s ", this.lastName));
+        sb.append(String.format("%5s", "PESEL: "));
+        sb.append(String.format("%-12s ", this.pesel));
+        sb.append(String.format("%10s", "Email: "));
+        sb.append(String.format("%-8s ", this.email));
+        sb.append(String.format("%8s", "Numer telefonu: "));
+        sb.append(String.format("%-6s ", this.phoneNumber));
+        sb.append(String.format("%8s", "Adres: "));
+        sb.append(String.format("%-6s ", this.address));
+        sb.append(String.format("%8s", "Zgody: "));
+        sb.append(String.format("%-6s ", this.approvals));
+        return sb.toString();
+    }
 
     public void setApprovals(Approvals approval, boolean value) {
         this.approvals.put(approval, value);

@@ -258,12 +258,16 @@ public class Library implements LibraryInterface, Serializable {
 
     @Override
     public String showCustomerRentals(String pesel) {
-        System.out.println(searchCustomerByPesel(pesel).toString());
         StringBuilder sb = new StringBuilder();
-        for (Map.Entry<Book, Customer> entry : this.rentals.entrySet()) {
-            if (entry.getValue().getPesel().equals(pesel)) {
-                sb.append(entry.getKey().toString());
+        try {
+            System.out.println(searchCustomerByPesel(pesel).toString());
+            for (Map.Entry<Book, Customer> entry : this.rentals.entrySet()) {
+                if (entry.getValue().getPesel().equals(pesel)) {
+                    sb.append(entry.getKey().toString());
+                }
             }
+        }catch (NullPointerException e){
+            System.out.println("Brak klientów w bazie");
         }
         return sb.toString();
     }
@@ -293,7 +297,7 @@ public class Library implements LibraryInterface, Serializable {
                     .append(entry.getValue().getFirstName())
                     .append(" ")
                     .append(entry.getValue().getLastName())
-                    .append(" ID: ")
+                    .append(" PESEL: ")
                     .append(entry.getValue().getPesel());
         }
         sb.append("\n");

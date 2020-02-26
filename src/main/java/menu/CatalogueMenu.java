@@ -12,23 +12,19 @@ import java.util.Scanner;
 import static menu.LibraryMenuUtils.showCatalogueMenu;
 
 public class CatalogueMenu {
-//    LibraryMenu libraryMenu = new LibraryMenu();
-//    Menu menu = new Menu();
-    //    private final Scanner scanner = new Scanner(System.in);
-//    Library library = Library.getInstance();
 
     static void catalogue() throws IOException {
         Library library = Library.getInstance();
         showCatalogueMenu();
         Scanner scanner = new Scanner(System.in);
-        int input = scanner.nextInt();
+        String input = scanner.next();
         switch (input) {
-            case 1:
+            case "1":
                 System.out.println("Podaj tytuł książki: ");
                 String title = scanner.next();
                 System.out.println("Podaj autora książki");
                 String author = scanner.next();
-                System.out.println("Podaj rok wydania książki w formacie yyyy");
+                System.out.println("Podaj rok wydania książki");
                 int released = scanner.nextInt();
                 System.out.println("Podaj kategorię książki: ");
                 System.out.println("Dostępne kategorie: ");
@@ -62,15 +58,20 @@ public class CatalogueMenu {
                 System.out.println("Podaj wydawcę książki: ");
                 String publisher = scanner.next();
                 library.addBook(library.createBook(title, author, released, c, bookCondition, pages, publisher));
+                menuHandler();
                 break;
 
-            case 2:
+            case "2":
                 System.out.println("Podaj ID książki do usunięcia: ");
-                String id = scanner.next();
-                Book book = library.getBookByID(id);
-                if (book == null) {
-                    break;
+                String id = scanner.next().toUpperCase();
+                while (library.getBookByID(id) == null) {
+                    System.out.println("Błędne ID książki, podaj ponownie: ");
+                    id = scanner.next().toUpperCase();
                 }
+//                Book book = library.getBookByID(id);
+//                if (book == null) {
+//                    break;
+//                }
                 System.out.println("Czy jesteś pewien, że chcesz usunąć książkę: " + library.getBookByID(id) + "y/n");
                 String y_n = scanner.next();
                 if (y_n.equals("y")) {
@@ -78,21 +79,35 @@ public class CatalogueMenu {
                     library.removeBook(id);
                 }
                 if (y_n.equals("n")) {
+                    System.out.println("Książka" + library.getBookByID(id).getAuthor()
+                            + " " + library.getBookByID(id).getTitle()
+                            + " dalej znajduje się w katalogu");
                     showCatalogueMenu();
                 }
+                menuHandler();
                 break;
-            case 3:
+            case "3":
                 if (library.getCatalogue().size() == 0) {
                     System.out.println("Katalog książek jest pusty");
                 } else {
                     System.out.println(library.showCatalogue());
                 }
+                menuHandler();
                 break;
-            case 4:
+            case "0":
                 Menu.readAndExecute();
                 break;
         }
 
+    }
+
+    private static void menuHandler() throws IOException {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Wciśnij [q] aby powrócić do menu Czytelnik");
+        String finish = scanner.nextLine();
+        if (finish.equals("q")) {
+            CatalogueMenu.catalogue();
+        }
     }
 
 }
